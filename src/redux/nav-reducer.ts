@@ -6,11 +6,12 @@ import {CategoriesType} from '../common/types';
 
 export const fetchCategories = createAsyncThunk<CategoriesType>('nav/fetchCategories', async(param, {dispatch}) => {
     const res = await booksAPI.getCategories()
-    console.log(res.data)
+
+    res.data.unshift({id: 99, name: 'Все  книги', path: 'all'})
     try {
         return res.data
-    } catch {
-        return console.log('error')
+    } catch(error) {
+        return error
     }
 
 })
