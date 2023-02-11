@@ -1,7 +1,9 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Outlet} from 'react-router-dom';
 import cn from 'classnames';
 
+import {fetchCategories} from '../../redux/nav-reducer';
+import {useAppDispatch} from '../../redux/store';
 import {Footer} from '../footer';
 import {Header} from '../header';
 import {NavBurger} from '../nav-books';
@@ -9,8 +11,10 @@ import {NavBurger} from '../nav-books';
 import styles from './layout.module.scss'
 
 
+export const Layout = React.memo(() => {
 
-export const Layout = () => {
+    const dispatch = useAppDispatch()
+
 
     const [toggleBurgerMenu, setToggleBurgerMenu] = useState(false)
     const toggleMenuHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
@@ -18,7 +22,15 @@ export const Layout = () => {
         setToggleBurgerMenu(!toggleBurgerMenu)
     }
 
+
+
     const dropDownRef = useRef<HTMLDivElement>(null);
+
+
+    useEffect(() => {
+        dispatch(fetchCategories())
+    },[dispatch])
+
     useEffect(() => {
         function handler(event:any) {
             if(!dropDownRef.current?.contains(event.target) ) {
@@ -26,8 +38,11 @@ export const Layout = () => {
             }
         }
         window.addEventListener('click', handler)
+
         return () => window.removeEventListener('click', handler)
     }, []);
+
+
 
     return (
         <div className={styles.layout} >
@@ -41,7 +56,7 @@ export const Layout = () => {
             <footer><Footer/></footer>
         </div>
     );
-}
+})
 
 
 

@@ -1,10 +1,13 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {bookReducer} from './books-reducer';
+import thunkMiddleware from 'redux-thunk'
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+
+import {booksReducer} from './books-reducer';
+import {navReducer} from "./nav-reducer";
 
 export const rootReducer = combineReducers({
-    bookReducer
+    books: booksReducer,
+    navigation: navReducer
 })
 
 export const store = configureStore({

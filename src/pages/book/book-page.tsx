@@ -10,7 +10,7 @@ import {Comment} from '../../components/comment';
 import {RatingForBookPages} from '../../components/rating/rating-for-book-pages';
 import {MobileSlider, Slider} from '../../components/slider';
 import {Table} from '../../components/table';
-import {useAppSelector} from '../../store/store';
+import {useAppSelector} from '../../redux/store';
 
 import styles from './book-page.module.scss'
 
@@ -40,7 +40,7 @@ export const BookPage = () => {
 
     const {id} = useParams()
 
-    const book = useAppSelector(state => state.bookReducer.find((el) => el.id === +id!))
+    const book = useAppSelector(state => state.books.find((el) => el.id === +id!))
 
     const [commentOpen, setCommentOpen] = useState(true)
 

@@ -27,4 +27,4 @@ export const slice = createSlice({
     }
 })
 
-export const bookReducer = slice.reducer
+export const booksReducer = slice.reducer

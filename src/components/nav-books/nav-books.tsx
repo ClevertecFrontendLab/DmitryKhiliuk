@@ -7,12 +7,20 @@ import open from '../../assets/icons/menu-open.svg'
 import {AGREEMENT, BOOKS, PROFILE, RULES} from '../../common/routes';
 
 import styles from './nav-books.module.scss'
+import {useAppDispatch, useAppSelector} from "../../redux/store";
+import {selectCategories} from "../../common/selectors";
 
 type NavBoxType = {
     setToggle?: (toggle: boolean) => void
 }
 
 export const NavBooks = ({setToggle}: NavBoxType) => {
+
+    const dispatch = useAppDispatch()
+    const categories = useAppSelector(selectCategories)
+
+
+    console.log('nav')
 
     const [showcase, setShowcase] = useState(true)
 

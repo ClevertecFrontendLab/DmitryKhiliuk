@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 
 import {Card} from '../../../../components/card';
-import {useAppSelector} from '../../../../store/store';
+import {useAppSelector} from '../../../../redux/store';
 
 import styles from './main-content.module.scss'
 
@@ -11,7 +11,7 @@ type MainContentType = {
 
 export const MainContent = ({grid}: MainContentType) => {
 
-    const books = useAppSelector(state => state.bookReducer)
+    const books = useAppSelector(state => state.books)
 
     const navigate = useNavigate()
 

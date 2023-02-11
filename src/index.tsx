@@ -11,13 +11,13 @@ import {MainBlock} from './pages/main/main-block';
 import {Terms} from './pages/main/terms';
 
 
-
 import './index.css';
-import {store} from './store/store';
+import {store} from './redux/store';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
 
 root.render(
     <React.StrictMode>
