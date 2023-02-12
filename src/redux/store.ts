@@ -4,9 +4,13 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
 import {booksReducer} from './books-reducer';
 import {navReducer} from "./nav-reducer";
+import {appReducer} from "./app-reducer";
+import {bookReducer} from "./book-reducer";
 
 export const rootReducer = combineReducers({
+    app: appReducer,
     books: booksReducer,
+    book: bookReducer,
     navigation: navReducer
 })
 

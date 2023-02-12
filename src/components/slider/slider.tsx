@@ -2,17 +2,16 @@ import {useState} from 'react';
 import {Navigation, Thumbs} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import {BookBlockType} from '../card/card';
-
 import './slider.scss'
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
+import {BookDetailType} from "../../common/types";
 
 type SliderType = {
-    book: BookBlockType
+    book: BookDetailType
 }
 
 export const Slider = ({book}: SliderType) => {
@@ -33,7 +32,7 @@ export const Slider = ({book}: SliderType) => {
                 className='product-images-slider'
             >
                 {
-                    book!.image.map((item: any) => (
+                    book.images.map((item: any) => (
                         <SwiperSlide key={item}>
                             <img src={item} alt="product images" />
                         </SwiperSlide>
@@ -49,7 +48,7 @@ export const Slider = ({book}: SliderType) => {
                 className='product-images-slider-thumbs'
             >
                 {
-                    book!.image.map((item: any) => (
+                    book.images.map((item: any) => (
                         <SwiperSlide key={item}>
                             <img src={item} alt="product images" data-test-id='slide-mini'/>
                         </SwiperSlide>

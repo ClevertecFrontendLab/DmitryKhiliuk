@@ -44,7 +44,7 @@ export  type BookType = {
     rating: number
     title: string
     authors: string[]
-    image: ImageType
+    image: ImageType | null
     categories: string[]
     id: number
     booking: BookingType | null
@@ -93,6 +93,10 @@ export type ErrorType = {
         message: string
         details: null
     }
+}
+
+export type AppStatusType = {
+    status: 'idle' | 'loading' | 'succeeded' | 'failed'
 }
 
 

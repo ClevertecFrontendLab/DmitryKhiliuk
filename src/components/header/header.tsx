@@ -6,6 +6,7 @@ import {MAIN} from '../../common/routes';
 import {ButtonBurger} from '../buttons';
 
 import styles from './header.module.scss'
+import {Error} from "../snackbar";
 
 
 type HeaderType = {
@@ -26,6 +27,7 @@ export const Header = ({toggle, setToggle}: HeaderType) => {
     return (
         <section className={styles.header}>
             <div className={styles.container}>
+                <Error/>
                 <div className={styles.headerSide}>
                     <Link to={MAIN}><img src={logo} alt="logo"/></Link>
                 </div>

@@ -1,5 +1,5 @@
 
-import {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 
 import empty from '../../assets/icons/cat.svg'
@@ -10,13 +10,16 @@ import {Comment} from '../../components/comment';
 import {RatingForBookPages} from '../../components/rating/rating-for-book-pages';
 import {MobileSlider, Slider} from '../../components/slider';
 import {Table} from '../../components/table';
-import {useAppSelector} from '../../redux/store';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
 
 import styles from './book-page.module.scss'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
+import {fetchBook} from "../../redux/book-reducer";
+import {selectBook, selectStatus} from "../../common/selectors";
+import {Loader} from "../../components/loader";
 
 
 const dataBook: any = {
@@ -39,8 +42,17 @@ const keysForRightTable = Object.keys(dataBook).splice(5, 8)
 export const BookPage = () => {
 
     const {id} = useParams()
+    const dispatch = useAppDispatch()
 
-    const book = useAppSelector(state => state.books.find((el) => el.id === +id!))
+    const bookId = +id!
+
+    useEffect(()  => {
+
+        dispatch(fetchBook({bookId}))
+    }, [dispatch, bookId])
+
+    const book = useAppSelector(selectBook)
+    const status = useAppSelector(selectStatus)
 
     const [commentOpen, setCommentOpen] = useState(true)
 
@@ -58,7 +70,7 @@ export const BookPage = () => {
                 </div>
                 <div className={styles.mainBlock}>
                     <div className={styles.img}>
-                        {book!.image.length?<div className={styles.slider}>{book&&book.image.length>3 && window.innerWidth>824 ? <Slider book={book}/> : <MobileSlider book={book!}/>}</div>:
+                        {book.images?<div className={styles.slider}>{book&&book.images.length>3 && window.innerWidth>824 ? <Slider book={book}/> : <MobileSlider book={book}/>}</div>:
                             <div className={styles.empty}><img src={empty} alt="cat"/></div>}
                     </div>
                     <div className={styles.description}>

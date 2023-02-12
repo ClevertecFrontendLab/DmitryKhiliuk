@@ -7,9 +7,10 @@ import './slider.scss';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import {BookDetailType} from "../../common/types";
 
 type MobileSliderType = {
-    book: BookBlockType
+    book: BookDetailType
 }
 
 export const MobileSlider = ({book}:MobileSliderType) => {
@@ -31,7 +32,7 @@ export const MobileSlider = ({book}:MobileSliderType) => {
                 className="mySwiper"
             >
                 {
-                    book!.image.map((item: any) => (
+                    book.images.map((item: any) => (
                         <SwiperSlide key={item} data-test-id='slide-mini'>
                             <img src={item} alt="product images"/>
                         </SwiperSlide>

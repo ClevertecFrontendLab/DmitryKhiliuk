@@ -2,9 +2,11 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {booksAPI} from '../api';
 import {CategoriesType} from '../common/types';
+import {setAppStatusAC} from "./app-reducer";
 
 
 export const fetchCategories = createAsyncThunk<CategoriesType>('nav/fetchCategories', async(param, {dispatch}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     const res = await booksAPI.getCategories()
 
     res.data.unshift({id: 99, name: 'Все  книги', path: 'all'})

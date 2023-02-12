@@ -8,13 +8,12 @@ const instance = axios.create({
 
 export const booksAPI = {
     getBooks(){
-       return  instance.get<AxiosResponse<BooksType>>('api/books')
+       return  instance.get('api/books')
     },
-    getBookDetail(id:number){
-        return  instance.get<AxiosResponse<BookDetailType>>(`api/books/${id}`,)
+    getBookDetail(bookId:number){
+        return  instance.get(`api/books/${bookId}`,)
     },
     getCategories(){
-        console.log('api')
         return  instance.get('api/categories',)
     },
 }

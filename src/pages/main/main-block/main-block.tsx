@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import cn from 'classnames'
 
 import search from '../../../assets/icons/search.svg';
+import {selectStatus} from '../../../common/selectors';
 import {FilterButton, RoundButton} from '../../../components/buttons';
 import {DisplayView} from '../../../components/display-view';
+import {useAppSelector} from '../../../redux/store';
 
 import cancel from './input-search-cancel-button.svg'
 import {MainContent} from './main-content';
@@ -12,6 +14,8 @@ import styles from './main-block.module.scss'
 
 
 export const MainBlock = () =>  {
+
+    const status = useAppSelector(selectStatus)
 
     const [gridContent, setGridContent] = useState(true)
     const [deployedInput, setDeployedInput] = useState(false)
