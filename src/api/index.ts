@@ -1,6 +1,4 @@
-import axios, {AxiosResponse} from 'axios';
-
-import {BookDetailType, BooksType, CategoriesType} from '../common/types';
+import axios from 'axios';
 
 const instance = axios.create({
     baseURL: 'https://strapi.cleverland.by/'

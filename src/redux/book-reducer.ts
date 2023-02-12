@@ -4,35 +4,55 @@ import {booksAPI} from '../api';
 import {BookDetailType} from '../common/types';
 
 import {setAppStatusAC} from './app-reducer';
+import {fetchBooks} from "./books-reducer";
 
-export const fetchBook = createAsyncThunk('book/fetchBook', async (param:{bookId:number}, {dispatch}) => {
+export const fetchBook = createAsyncThunk('book/fetchBook', async (param:{bookId:number}, {dispatch, rejectWithValue}) => {
 
-    dispatch(setAppStatusAC({status: 'loading'}))
+    dispatch(setAppStatusAC({status: 'loading', error: null}))
     const res = await booksAPI.getBookDetail(param.bookId)
 
     try {
-        console.log(res.data)
-        dispatch(setAppStatusAC({status: 'succeeded'}))
-
-
+        dispatch(setAppStatusAC({status: 'succeeded', error: null}))
         return res.data
-    } catch (error) {
-        dispatch(setAppStatusAC({status: 'failed'}))
+    } catch (err:any) {
+        const error = err
 
-        return error
+        if(!error.response){
+            throw err
+        }
+        return rejectWithValue(error.response.data)
+    } finally {
+        dispatch(setAppStatusAC({status: 'succeeded', error: 'error'}))
     }
 })
 
 export const slice = createSlice({
     name: 'book',
-    initialState: {} as BookDetailType,
+    initialState: {
+        content: {} as BookDetailType,
+        error: ''
+    } ,
     reducers: {
 
     },
     extraReducers: builder => {
         builder
-            .addCase(fetchBook.fulfilled, (state, action) => action.payload)
+            .addCase(fetchBook.fulfilled, (state, action) => {
+                // eslint-disable-next-line no-param-reassign
+                state.content  = action.payload
+            })
+            .addCase(fetchBook.rejected, (state, action) => {
+                if (action.payload) {
+                    // eslint-disable-next-line no-param-reassign
+                    state.error! = action.error.message!;
+                } else {
+                    // eslint-disable-next-line no-param-reassign
+                    state.error = action.error.message!;
+                }
+            })
+
     }
+
 })
 
 export const bookReducer = slice.reducer

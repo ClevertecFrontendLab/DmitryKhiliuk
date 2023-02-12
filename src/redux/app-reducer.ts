@@ -1,15 +1,17 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {AppStatusType} from '../common/types';
+import {AppStatusType, ErrorType} from '../common/types';
 
 export const slice = createSlice({
     name: 'app',
     initialState: {
-        status: 'idle'
+        status: 'idle',
+        error: null
     } as AppStatusType,
     reducers: {
         setAppStatusAC(state, action: PayloadAction<AppStatusType>) {
-            return action.payload
+            // eslint-disable-next-line no-param-reassign
+            state.status  = action.payload.status
         },
     }
 })
