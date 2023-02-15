@@ -26,7 +26,6 @@ export const MobileSlider = ({book}:MobileSliderType) => {
                 spaceBetween={1}
                 pagination={{
                     clickable: true,
-
                 }}
                 modules={[Pagination]}
                 className="mySwiper"
@@ -34,7 +33,7 @@ export const MobileSlider = ({book}:MobileSliderType) => {
                 {
                     book.images.map((item: any) => (
                         <SwiperSlide key={item} data-test-id='slide-mini'>
-                            <img src={item} alt="product images"/>
+                            <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images"/>
                         </SwiperSlide>
                     ))
                 }

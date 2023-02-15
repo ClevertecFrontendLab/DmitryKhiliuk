@@ -9,21 +9,20 @@ import {fetchBooks} from "./books-reducer";
 export const fetchBook = createAsyncThunk('book/fetchBook', async (param:{bookId:number}, {dispatch, rejectWithValue}) => {
 
     dispatch(setAppStatusAC({status: 'loading', error: null}))
-    const res = await booksAPI.getBookDetail(param.bookId)
-
     try {
+        const res = await booksAPI.getBookDetail(param.bookId)
         dispatch(setAppStatusAC({status: 'succeeded', error: null}))
         return res.data
     } catch (err:any) {
+        dispatch(setAppStatusAC({status: 'failed', error: null}))
         const error = err
 
-        if(!error.response){
+        if (!error.response) {
             throw err
         }
         return rejectWithValue(error.response.data)
-    } finally {
-        dispatch(setAppStatusAC({status: 'succeeded', error: 'error'}))
     }
+
 })
 
 export const slice = createSlice({

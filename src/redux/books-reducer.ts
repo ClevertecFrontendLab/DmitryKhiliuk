@@ -1,28 +1,24 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {booksAPI} from '../api';
-import {BooksType} from '../common/types';
+import {BooksType, ErrorType} from '../common/types';
 
 import {setAppStatusAC} from './app-reducer';
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async (param, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading', error: null}))
-    const res = await booksAPI.getBooks()
-
     try {
-
-
+        const res = await booksAPI.getBooks()
+        dispatch(setAppStatusAC({status: 'succeeded', error: 'error'}))
         return res.data
     } catch (err:any) {
-
+        dispatch(setAppStatusAC({status: 'failed', error: 'error'}))
         const error = err
-
+        console.log(err)
         if(!error.response){
             throw err
         }
-        return rejectWithValue(error.response.data)
-    } finally {
-        dispatch(setAppStatusAC({status: 'succeeded', error: 'error'}))
+        return rejectWithValue(error.response.data.payload)
     }
 })
 
@@ -41,14 +37,10 @@ export const slice = createSlice({
                 // eslint-disable-next-line no-param-reassign
                 state.content  = action.payload
             })
-            .addCase(fetchBooks.rejected, (state, action) => {
-                if (action.payload) {
-                    // eslint-disable-next-line no-param-reassign
-                   state.error! = action.error.message!;
-                } else {
-                    // eslint-disable-next-line no-param-reassign
-                    state.error = action.error.message!;
-                }
+            .addCase(fetchBooks.rejected, (state, action:any) => {
+                console.log(action.error)
+                // eslint-disable-next-line no-param-reassign
+                state.error = action.error.message
             })
 
     }

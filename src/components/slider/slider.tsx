@@ -2,13 +2,14 @@ import {useState} from 'react';
 import {Navigation, Thumbs} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
+import {BookDetailType} from '../../common/types';
+
 import './slider.scss'
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import {BookDetailType} from "../../common/types";
 
 type SliderType = {
     book: BookDetailType
@@ -34,12 +35,12 @@ export const Slider = ({book}: SliderType) => {
                 {
                     book.images.map((item: any) => (
                         <SwiperSlide key={item}>
-                            <img src={item} alt="product images" />
+                            <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images" />
                         </SwiperSlide>
                     ))
                 }
             </Swiper>
-            <Swiper
+            {book.images.length>1&& <Swiper
                 onSwiper={setActiveThumb}
                 loop={true}
                 spaceBetween={35}
@@ -50,11 +51,12 @@ export const Slider = ({book}: SliderType) => {
                 {
                     book.images.map((item: any) => (
                         <SwiperSlide key={item}>
-                            <img src={item} alt="product images" data-test-id='slide-mini'/>
+                            <img src={(`https://strapi.cleverland.by${item.url}`)}
+                                 alt="product images" data-test-id='slide-mini'/>
                         </SwiperSlide>
                     ))
                 }
-            </Swiper>
+            </Swiper>}
 
         </div>
     );

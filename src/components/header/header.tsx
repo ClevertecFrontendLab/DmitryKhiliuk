@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import avatar from '../../assets/avatar/avatar.png'
 import logo from '../../assets/logo/logo.svg'
 import {MAIN} from '../../common/routes';
-import {selectBookError, selectBooksError} from '../../common/selectors';
+import {selectBookError, selectBooksError, selectStatus} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 import {ButtonBurger} from '../buttons';
 import {Error} from '../snackbar';
@@ -22,6 +22,7 @@ export const Header = ({toggle, setToggle}: HeaderType) => {
 
     const booksError = useAppSelector(selectBooksError)
     const bookError = useAppSelector(selectBookError)
+    const status = useAppSelector(selectStatus)
 
     const onClickHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
         setToggle(event)
@@ -30,7 +31,7 @@ export const Header = ({toggle, setToggle}: HeaderType) => {
     return (
         <section className={styles.header}>
             <div className={styles.container}>
-                {(booksError||bookError)&&<Error/>}
+                {status==='failed'&&<Error/>}
                 <div className={styles.headerSide}>
                     <Link to={MAIN}><img src={logo} alt="logo"/></Link>
                 </div>
