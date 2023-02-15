@@ -4,14 +4,15 @@ import {booksAPI} from '../api';
 import {BookDetailType} from '../common/types';
 
 import {setAppStatusAC} from './app-reducer';
-import {fetchBooks} from "./books-reducer";
 
 export const fetchBook = createAsyncThunk('book/fetchBook', async (param:{bookId:number}, {dispatch, rejectWithValue}) => {
 
     dispatch(setAppStatusAC({status: 'loading', error: null}))
     try {
         const res = await booksAPI.getBookDetail(param.bookId)
+
         dispatch(setAppStatusAC({status: 'succeeded', error: null}))
+
         return res.data
     } catch (err:any) {
         dispatch(setAppStatusAC({status: 'failed', error: null}))
@@ -20,6 +21,7 @@ export const fetchBook = createAsyncThunk('book/fetchBook', async (param:{bookId
         if (!error.response) {
             throw err
         }
+
         return rejectWithValue(error.response.data)
     }
 

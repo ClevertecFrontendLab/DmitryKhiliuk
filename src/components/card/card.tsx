@@ -15,10 +15,16 @@ export type BookComponentType = {
 
 
 
-export const Card = ({book: {issueYear, rating, title, authors, image, id}, grid}: BookComponentType) => {
-   const x = () => {
-     
-   }
+export const Card = ({book: {issueYear, rating, title, authors, image, id, booking, delivery}, grid}: BookComponentType) => {
+    let bookStatus: string
+
+    if (booking) {
+        bookStatus = 'reserved'
+    }else if (delivery) {
+        bookStatus = 'taken'
+    } else {
+        bookStatus = 'free'
+    }
 
     return (
         <div>
@@ -39,7 +45,7 @@ export const Card = ({book: {issueYear, rating, title, authors, image, id}, grid
                             </div>
                         </div>
                         <div className={styles.button}>
-                            <Button status='free' size="small"/>
+                            <Button status={bookStatus} size="small"/>
                         </div>
                     </div>
                 </div> :
@@ -57,7 +63,7 @@ export const Card = ({book: {issueYear, rating, title, authors, image, id}, grid
                                 <Rating count={rating}/>
                             </div>
                             <div className={styles.buttonRow}>
-                                <Button status='free' size="small"/>
+                                <Button status='free' size="small" date={delivery?.dateHandedTo}/>
                             </div>
                         </div>
                     </div>

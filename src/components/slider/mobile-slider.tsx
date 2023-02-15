@@ -31,8 +31,8 @@ export const MobileSlider = ({book}:MobileSliderType) => {
                 className="mySwiper"
             >
                 {
-                    book.images.map((item: any) => (
-                        <SwiperSlide key={item} data-test-id='slide-mini'>
+                    book.images.map((item) => (
+                        <SwiperSlide key={item.url} data-test-id='slide-mini'>
                             <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images"/>
                         </SwiperSlide>
                     ))

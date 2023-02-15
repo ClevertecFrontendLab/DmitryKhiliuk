@@ -63,7 +63,15 @@ export const BookPage = () => {
     const keysForLeftTable = Object.keys(dataBook).splice(0, 5)
     const keysForRightTable = Object.keys(dataBook).splice(5, 8)
 
+    let bookStatus: string
 
+    if (book.booking) {
+        bookStatus = 'reserved'
+    }else if (book.delivery) {
+        bookStatus = 'taken'
+    } else {
+        bookStatus = 'free'
+    }
 
     return (
         <section className={styles.bookPage}>
@@ -87,7 +95,7 @@ export const BookPage = () => {
                             {book.authors && book.authors.reduce((acc: string, number) => acc + number, '')}{`, ${book.issueYear}`}
                         </h5>
                         <div className={styles.button}>
-                            <Button status="free" size='large'/>
+                            <Button status={bookStatus} size='large'/>
                         </div>
                     </div>
                     <div className={styles.annotation}>

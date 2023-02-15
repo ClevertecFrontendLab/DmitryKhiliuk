@@ -33,8 +33,9 @@ export const Slider = ({book}: SliderType) => {
                 className='product-images-slider'
             >
                 {
-                    book.images.map((item: any) => (
-                        <SwiperSlide key={item}>
+                    book.images.map((item , index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <SwiperSlide key={index}>
                             <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images" />
                         </SwiperSlide>
                     ))
@@ -49,8 +50,8 @@ export const Slider = ({book}: SliderType) => {
                 className='product-images-slider-thumbs'
             >
                 {
-                    book.images.map((item: any) => (
-                        <SwiperSlide key={item}>
+                    book.images.map((item) => (
+                        <SwiperSlide key={item.url}>
                             <img src={(`https://strapi.cleverland.by${item.url}`)}
                                  alt="product images" data-test-id='slide-mini'/>
                         </SwiperSlide>

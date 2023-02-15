@@ -6,13 +6,28 @@ type ButtonType = {
     status?: string
     size: string
     name?: string
+    date?: string
 
 }
 
-export const Button = ({status, size, name}:ButtonType) => {
+export const Button = ({status, size, name, date}:ButtonType) => {
 
     let disable = false
     let buttonName
+
+
+    const dateDelivery = new Date(date!)
+    const formatDate = (date:any) => {
+        let dd = date.getDate();
+
+        if (dd < 10) dd = `0${  dd}`;
+
+        let mm = date.getMonth() + 1;
+
+        if (mm < 10) mm = `0${  mm}`;
+
+        return `${dd  }.${  mm}` ;
+    };
 
     const getStatus = () =>  {
         let result
@@ -28,7 +43,7 @@ export const Button = ({status, size, name}:ButtonType) => {
                 break
             case 'taken':
                 result = `${styles.secondary}`
-                buttonName = 'занята до 24.04'
+                buttonName = `занята до ${formatDate(dateDelivery)}`
                 disable = true
                 break
             default:
