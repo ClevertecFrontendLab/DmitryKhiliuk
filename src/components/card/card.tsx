@@ -1,5 +1,3 @@
-import React from 'react';
-
 import cat from '../../assets/icons/cat-crd.svg'
 import {BookType} from '../../common/types';
 import {Button} from '../buttons';
@@ -15,7 +13,7 @@ export type BookComponentType = {
 
 
 
-export const Card = ({book: {issueYear, rating, title, authors, image, id, booking, delivery}, grid}: BookComponentType) => {
+export const Card = ({book: {issueYear, rating, title, authors, image, booking, delivery}, grid}: BookComponentType) => {
     let bookStatus: string
 
     if (booking) {
@@ -31,8 +29,8 @@ export const Card = ({book: {issueYear, rating, title, authors, image, id, booki
             {grid ?
                 <div className={styles.bookBlockGrid}>
                     <div className={styles.image}>
-                        <div><img src={image ? (`https://strapi.cleverland.by${ image.url}`) : cat}
-                                  alt="img"/></div>
+                        <img src={image ? (`https://strapi.cleverland.by${ image.url}`) : cat}
+                                  alt="img"/>
                     </div>
                     <div className={styles.subBlock}>
                         <div className={styles.ratingBook}>

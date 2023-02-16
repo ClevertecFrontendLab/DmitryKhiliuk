@@ -4,18 +4,20 @@ import {booksAPI} from '../api';
 import {BookDetailType} from '../common/types';
 
 import {setAppStatusAC} from './app-reducer';
+import {fetchBooks} from './books-reducer';
+
 
 export const fetchBook = createAsyncThunk('book/fetchBook', async (param:{bookId:number}, {dispatch, rejectWithValue}) => {
 
-    dispatch(setAppStatusAC({status: 'loading', error: null}))
+    dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await booksAPI.getBookDetail(param.bookId)
 
-        dispatch(setAppStatusAC({status: 'succeeded', error: null}))
+        dispatch(setAppStatusAC({status: 'succeeded'}))
 
         return res.data
     } catch (err:any) {
-        dispatch(setAppStatusAC({status: 'failed', error: null}))
+        dispatch(setAppStatusAC({status: 'failed'}))
         const error = err
 
         if (!error.response) {
@@ -34,22 +36,22 @@ export const slice = createSlice({
         error: ''
     } ,
     reducers: {
-
+        resetBookAC(state, action) {
+            const esState = state
+            esState.content = action.payload
+        }
     },
     extraReducers: builder => {
         builder
             .addCase(fetchBook.fulfilled, (state, action) => {
-                // eslint-disable-next-line no-param-reassign
-                state.content  = action.payload
+                const esState = state
+
+                esState.content  = action.payload
             })
-            .addCase(fetchBook.rejected, (state, action) => {
-                if (action.payload) {
-                    // eslint-disable-next-line no-param-reassign
-                    state.error! = action.error.message!;
-                } else {
-                    // eslint-disable-next-line no-param-reassign
-                    state.error = action.error.message!;
-                }
+            .addCase(fetchBooks.rejected, (state, action:any) => {
+                const esState = state
+
+                esState.error = action.error.message
             })
 
     }
@@ -57,3 +59,4 @@ export const slice = createSlice({
 })
 
 export const bookReducer = slice.reducer
+export const {resetBookAC} = slice.actions

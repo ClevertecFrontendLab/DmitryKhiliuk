@@ -116,7 +116,8 @@
                 .title {
                     @include subtitle-text
                 }
-                .text p{
+                .text {
+                    margin-top: 16px;
                     @media screen and (max-width: 433px) {
                         @include body-small;
                         margin-top: 16px;

@@ -2,25 +2,28 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import {booksAPI} from '../api';
 import {CategoriesType} from '../common/types';
-import {setAppStatusAC} from "./app-reducer";
+
+import {setAppStatusAC} from './app-reducer';
 
 
 export const fetchCategories = createAsyncThunk<CategoriesType>('nav/fetchCategories', async(param, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatusAC({status: 'loading',  error: null}))
+    dispatch(setAppStatusAC({status: 'loading'}))
 
     try {
-        dispatch(setAppStatusAC({status: 'succeeded', error: null}))
+        dispatch(setAppStatusAC({status: 'succeeded'}))
         const res = await booksAPI.getCategories()
 
         res.data.unshift({id: 99, name: 'Все  книги', path: 'all'})
+
         return res.data
     } catch(err:any) {
-        dispatch(setAppStatusAC({status: 'failed', error: null}))
+        dispatch(setAppStatusAC({status: 'failed'}))
         const error = err
 
         if(!error.response){
             throw err
         }
+
         return rejectWithValue(error.response.data)
     }
 

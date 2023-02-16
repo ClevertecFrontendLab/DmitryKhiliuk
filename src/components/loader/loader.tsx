@@ -1,12 +1,6 @@
-import React from 'react';
-
 import styles from './loader.module.scss'
 
-export const Loader = () => {
-    const x = () => {
-
-    }
-    return (
+export const Loader = () => (
         <div className={styles.ring} data-test-id='loader'>
             <div> </div>
             <div> </div>
@@ -14,5 +8,4 @@ export const Loader = () => {
             <div> </div>
         </div>
     );
-};
 

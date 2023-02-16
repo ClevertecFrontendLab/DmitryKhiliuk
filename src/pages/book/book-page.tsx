@@ -4,12 +4,10 @@ import {useParams} from 'react-router-dom';
 import empty from '../../assets/icons/cat.svg'
 import comClose from '../../assets/icons/comment_close.svg'
 import comOpen from '../../assets/icons/comment_open.svg'
-import {selectBook, selectStatus} from '../../common/selectors';
+import {selectBook} from '../../common/selectors';
 import {Button} from '../../components/buttons';
 import {Comment} from '../../components/comment';
-import {Loader} from '../../components/loader';
 import {Rating} from '../../components/rating';
-import {RatingForBookPages} from '../../components/rating/rating-for-book-pages';
 import {MobileSlider, Slider} from '../../components/slider';
 import {Table} from '../../components/table';
 import {fetchBook} from '../../redux/book-reducer';
@@ -22,13 +20,9 @@ import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 
 
-
-
-
 export const BookPage = () => {
 
     const book = useAppSelector(selectBook)
-    const status = useAppSelector(selectStatus)
 
     const {id} = useParams()
     const dispatch = useAppDispatch()
@@ -77,8 +71,7 @@ export const BookPage = () => {
         <section className={styles.bookPage}>
             <div className={styles.container}>
                 <div className={styles.breadCrumbs}>
-                    Бизнес книги /
-                    Грокаем алгоритмы. Иллюстрированное пособие для программистов и любопытствующих
+                    {`${book!.categories?.map((el) => `${el} `)  }/${  book.title}`}
                 </div>
                 <div className={styles.mainBlock}>
                     <div className={styles.img}>

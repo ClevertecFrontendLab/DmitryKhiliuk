@@ -10,7 +10,7 @@ export const Error = () => {
     const dispatch = useAppDispatch()
 
     const onClickHandler = () => {
-        dispatch(setAppStatusAC({status:'idle', error: null}))
+        dispatch(setAppStatusAC({status:'idle'}))
     }
 
     return (

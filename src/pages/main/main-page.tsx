@@ -1,7 +1,6 @@
 import {Outlet} from 'react-router-dom';
 
 import {NavBooks} from '../../components/nav-books';
-import {Error} from '../../components/snackbar';
 
 import styles from './main-page.module.scss'
 

@@ -15,8 +15,6 @@ import styles from './main-block.module.scss'
 
 export const MainBlock = () =>  {
 
-    const status = useAppSelector(selectStatus)
-
     const [gridContent, setGridContent] = useState(true)
     const [deployedInput, setDeployedInput] = useState(false)
 

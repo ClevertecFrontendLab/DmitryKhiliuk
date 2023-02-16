@@ -1,25 +1,18 @@
 import {Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import {BookBlockType} from '../card/card';
+import {BookDetailType} from '../../common/types';
 
 import './slider.scss';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import {BookDetailType} from "../../common/types";
 
 type MobileSliderType = {
     book: BookDetailType
 }
 
-export const MobileSlider = ({book}:MobileSliderType) => {
-    const x = () => {
-
-    }
-
-
-    return (
+export const MobileSlider = ({book}:MobileSliderType) => (
         <div>
             <Swiper
                 data-test-id='slide-big'
@@ -39,5 +32,4 @@ export const MobileSlider = ({book}:MobileSliderType) => {
                 }
             </Swiper>
         </div>
-    );
-}
+    )

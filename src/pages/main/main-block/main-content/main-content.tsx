@@ -1,11 +1,12 @@
 import {useNavigate, useParams} from 'react-router-dom';
 
 import {selectBooks, selectCategories} from '../../../../common/selectors';
+import {BooksType} from '../../../../common/types';
 import {Card} from '../../../../components/card';
-import {useAppSelector} from '../../../../redux/store';
+import {resetBookAC} from '../../../../redux/book-reducer';
+import {useAppDispatch, useAppSelector} from '../../../../redux/store';
 
 import styles from './main-content.module.scss'
-import {BooksType} from "../../../../common/types";
 
 type MainContentType = {
     grid: boolean
@@ -16,6 +17,7 @@ export const MainContent = ({grid}: MainContentType) => {
     const books = useAppSelector(selectBooks)
     const categories = useAppSelector(selectCategories)
 
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {category} = useParams()
 
@@ -35,6 +37,7 @@ export const MainContent = ({grid}: MainContentType) => {
     const contentOrder = getContentOrder()
 
     const onClickHandler = (id:number) => {
+        dispatch(resetBookAC({content: {}, error: ''}))
         navigate(`${id}`)
     }
 

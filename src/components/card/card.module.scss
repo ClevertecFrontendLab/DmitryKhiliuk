@@ -18,6 +18,13 @@
     .image {
         width: 174px;
         height: 242px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+            img {
+                height: 100%;
+                width: auto;
+            }
         @media screen and (max-width: 433px){
             margin: 0 auto;
         }
