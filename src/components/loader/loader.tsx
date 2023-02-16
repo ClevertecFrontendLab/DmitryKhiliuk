@@ -1,11 +1,10 @@
+import loader from '../../assets/icons/loader.svg'
+
 import styles from './loader.module.scss'
 
 export const Loader = () => (
         <div className={styles.ring} data-test-id='loader'>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
+            <img src={loader} alt="loader"/>
         </div>
     );
 
