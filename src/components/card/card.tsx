@@ -51,7 +51,7 @@ export const Card = ({book: {issueYear, rating, title, authors, image, id, booki
                 </div> :
                 <div className={styles.bookBlockRow}>
                     <div className={styles.imageRow}>
-                        <div><img src={image ? image : cat} alt="img"/></div>
+                        <div><img src={image ? (`https://strapi.cleverland.by${ image.url}`):cat} alt="img"/></div>
                     </div>
                     <div className={styles.subBlockRow}>
                         <div className={styles.descriptionRow}>

@@ -5,7 +5,7 @@ import cn from 'classnames';
 import close from '../../assets/icons/menu-close.svg';
 import open from '../../assets/icons/menu-open.svg';
 import {AGREEMENT, BOOKS, PROFILE, RULES} from '../../common/routes';
-import {selectCategories} from '../../common/selectors';
+import {selectBooks, selectCategories} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 
 import styles from './nav-books.module.scss'
@@ -18,6 +18,7 @@ type NavBoxType = {
 export const NavBurger = ({callBurger}: NavBoxType) => {
 
     const categories = useAppSelector(selectCategories)
+    const books = useAppSelector(selectBooks)
 
     const [showcase, setShowcase] = useState(true)
 
@@ -48,10 +49,11 @@ export const NavBurger = ({callBurger}: NavBoxType) => {
                     </NavLink>
                     <img src={showcase?open:close} alt="menu"/>
                 </div>
-                <div data-test-id='burger-books'>{showcase && categories.map((el) => (<div key={el.id} className={styles.item}>
+                <div data-test-id='burger-books'>{showcase && categories.map((el, index) => (<div key={el.id} className={styles.item}>
                         <NavLink to={`/books/${el.path}`} className={setActiveSubmenuItem}
                                  onClick={toggleHandlerForMenuItems}>{el.name}</NavLink>
-                        <span className={styles.count}>44</span>
+                    <span className={styles.count}>{index ? books.filter((book) => book.categories.find((ctgrs) => ctgrs === el.name)).length :
+                        books.length}</span>
                     </div>)
                 )}</div>
                 <NavLink to={RULES} className={setActiveMenuItem} onClick={toggleHandler} data-test-id='burger-terms'

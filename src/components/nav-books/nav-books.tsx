@@ -5,7 +5,7 @@ import cn from 'classnames';
 import close from '../../assets/icons/menu-close.svg'
 import open from '../../assets/icons/menu-open.svg'
 import {AGREEMENT, BOOKS, PROFILE, RULES} from '../../common/routes';
-import {selectCategories} from '../../common/selectors';
+import {selectBooks, selectCategories} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 
 import styles from './nav-books.module.scss'
@@ -18,6 +18,8 @@ export const NavBooks = ({setToggle}: NavBoxType) => {
 
 
     const categories = useAppSelector(selectCategories)
+    const books = useAppSelector(selectBooks)
+
 
 
     const [showcase, setShowcase] = useState(true)
@@ -43,12 +45,14 @@ export const NavBooks = ({setToggle}: NavBoxType) => {
                     <h5>Витрина книг</h5></NavLink>
                     <img src={showcase?open:close} alt="menu"/>
                 </div>
-                <div data-test-id='navigation-books'>{showcase && categories.map((el) => (<div key={el.id} className={styles.item}>
+                <div data-test-id='navigation-books'>{showcase && categories.map((el,index) => (<div key={el.id} className={styles.item}>
                         <NavLink to={`/books/${el.path}`} className={setActiveSubmenuItem}
                                  onClick={() => setToggle?.(false)}>{el.name}</NavLink>
-                        <span className={styles.count}>25</span>
+                        <span className={styles.count}>{index ? books.filter((book) => book.categories.find((ctgrs) => ctgrs === el.name)).length :
+                        books.length}</span>
                     </div>)
                 )}</div>
+
                 <NavLink to={RULES} className={setActiveMenuItem} onClick={toggleHandler} data-test-id='navigation-terms'
                 ><h5>Правила пользования</h5></NavLink>
                 <NavLink to={AGREEMENT} className={setActiveMenuItem} onClick={toggleHandler} data-test-id='navigation-contract'><h5>Договор оферты</h5></NavLink>

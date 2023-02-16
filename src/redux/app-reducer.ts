@@ -6,7 +6,7 @@ export const slice = createSlice({
     name: 'app',
     initialState: {
         status: 'idle',
-        error: null
+        error: ''
     } as AppStatusType,
     reducers: {
         setAppStatusAC(state, action: PayloadAction<AppStatusType>) {

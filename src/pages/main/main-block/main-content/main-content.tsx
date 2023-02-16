@@ -1,10 +1,11 @@
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
-import {selectBooks} from '../../../../common/selectors';
+import {selectBooks, selectCategories} from '../../../../common/selectors';
 import {Card} from '../../../../components/card';
 import {useAppSelector} from '../../../../redux/store';
 
 import styles from './main-content.module.scss'
+import {BooksType} from "../../../../common/types";
 
 type MainContentType = {
     grid: boolean
@@ -13,8 +14,22 @@ type MainContentType = {
 export const MainContent = ({grid}: MainContentType) => {
 
     const books = useAppSelector(selectBooks)
+    const categories = useAppSelector(selectCategories)
 
     const navigate = useNavigate()
+    const {category} = useParams()
+
+    const currentCategory = categories.find((el) => el.path === category)
+    const categoryName = currentCategory?.name
+    const booksInThisCategory = books.filter((book) => book.categories.find((ctgrs) => ctgrs === categoryName))
+
+    let selectCategoryBooks: BooksType
+
+    if (category === 'all') {
+        selectCategoryBooks = books
+    } else {
+        selectCategoryBooks = booksInThisCategory
+    }
 
     const getContentOrder = () => grid ? `${styles.contentGrid}` : `${styles.contentGrid} ${styles.contentRow}`
     const contentOrder = getContentOrder()
@@ -25,7 +40,7 @@ export const MainContent = ({grid}: MainContentType) => {
 
     return (
         <div className={contentOrder}  >
-            {books.map((book) => <div key={book.id} tabIndex={0} role='button' onKeyDown={() => onClickHandler(book.id)} onClick={() => onClickHandler(book.id)} data-test-id='card'>
+            {selectCategoryBooks.map((book) => <div key={book.id} tabIndex={0} role='button' onKeyDown={() => onClickHandler(book.id)} onClick={() => onClickHandler(book.id)} data-test-id='card'>
                 <Card  book={book} grid={grid}/>
             </div>)}
         </div>
