@@ -29,9 +29,6 @@ export const DisplayView = ({callBack, gridContent, purposeButton}: DisplayButto
     const image = display === row ? (gridContent?rowOff:rowOn) : (gridContent?gridOn:gridOff)
 
     return (
-        /* <button className={display} type='button' onClick={onClickHandler}>
-            <img src={image} alt=""/>
-        </button> */
         <div>
             <RoundButton callButton={onClickHandler} image={image} className={display}/>
         </div>

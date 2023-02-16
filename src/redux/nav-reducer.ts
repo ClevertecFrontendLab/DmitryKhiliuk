@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {AxiosError} from 'axios';
 
 import {booksAPI} from '../api';
 import {CategoriesType} from '../common/types';
@@ -16,9 +17,9 @@ export const fetchCategories = createAsyncThunk<CategoriesType>('nav/fetchCatego
         res.data.unshift({id: 99, name: 'Все  книги', path: 'all'})
 
         return res.data
-    } catch(err:any) {
+    } catch(err) {
         dispatch(setAppStatusAC({status: 'failed'}))
-        const error = err
+        const error = err as AxiosError
 
         if(!error.response){
             throw err

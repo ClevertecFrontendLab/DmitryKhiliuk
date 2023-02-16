@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {AxiosError} from 'axios';
 
 import {booksAPI} from '../api';
 import {BooksType} from '../common/types';
@@ -13,15 +14,15 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (param, {di
         dispatch(setAppStatusAC({status: 'succeeded'}))
 
         return res.data
-    } catch (err:any) {
+    } catch (err) {
         dispatch(setAppStatusAC({status: 'failed'}))
-        const error = err
+        const error = err as AxiosError
 
         if(!error.response){
             throw err
         }
 
-        return rejectWithValue(error.response.data.payload)
+        return rejectWithValue(error.response.data)
     }
 })
 
@@ -41,10 +42,10 @@ export const slice = createSlice({
 
                 esState.content  = action.payload
             })
-            .addCase(fetchBooks.rejected, (state, action:any) => {
+            .addCase(fetchBooks.rejected, (state, action) => {
                 const esState = state
 
-                esState.error = action.error.message
+                esState.error = action.error.message!
             })
 
     }

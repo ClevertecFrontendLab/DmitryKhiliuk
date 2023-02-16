@@ -1,38 +1,21 @@
-/* declare module '*.svg' {
-    const src: string
-    export const ReactComponent: unknown
-    // eslint-disable-next-line import/no-default-export
-    export default src
-}
-declare module '*.png' {
-    const src: string
-    // eslint-disable-next-line import/no-default-export
-    export default src
-}
-type CSSModuleClasses = { readonly [key: string]: string }
 
-declare module '*.module.scss' {
-    const classes: CSSModuleClasses
-    // eslint-disable-next-line import/no-default-export
-    export default classes
-} */
 declare module '*.scss' {
-    export const scss: any;
+    export const scss;
     // eslint-disable-next-line import/no-default-export
     export default scss
 }
 declare module '*.svg' {
-    export const svg: any;
+    export const svg;
     // eslint-disable-next-line import/no-default-export
     export default svg
 }
 declare module '*.jpg' {
-    export const jpg: any;
+    export const jpg;
     // eslint-disable-next-line import/no-default-export
     export default jpg
 }
 declare module '*.png' {
-    export const png: any;
+    export const png;
     // eslint-disable-next-line import/no-default-export
     export default png
 }

@@ -19,6 +19,11 @@ export const Slider = ({book}: SliderType) => {
 
     const [activeThumb, setActiveThumb] = useState<any>(null)
 
+    const imagesBlock = () => book.images.map((item) => (
+        <SwiperSlide key={item.url}>
+            <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images"/>
+        </SwiperSlide>
+    ))
 
     return (
         <div>
@@ -32,16 +37,9 @@ export const Slider = ({book}: SliderType) => {
                 thumbs={{swiper: activeThumb && !activeThumb.destroyed ? activeThumb : null}}
                 className='product-images-slider'
             >
-                {
-                    book.images.map((item , index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <SwiperSlide key={index}>
-                            <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images" />
-                        </SwiperSlide>
-                    ))
-                }
+                <div>{imagesBlock()}</div>
             </Swiper>
-            {book.images.length>1&& <Swiper
+            {book.images.length > 1 && <Swiper
                 onSwiper={setActiveThumb}
                 loop={true}
                 spaceBetween={35}
@@ -49,14 +47,8 @@ export const Slider = ({book}: SliderType) => {
                 modules={[Navigation, Thumbs]}
                 className='product-images-slider-thumbs'
             >
-                {
-                    book.images.map((item) => (
-                        <SwiperSlide key={item.url}>
-                            <img src={(`https://strapi.cleverland.by${item.url}`)}
-                                 alt="product images" data-test-id='slide-mini'/>
-                        </SwiperSlide>
-                    ))
-                }
+                <div data-test-id='slide-mini'>{imagesBlock()}</div>
+
             </Swiper>}
 
         </div>
