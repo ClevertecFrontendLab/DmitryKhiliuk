@@ -17,14 +17,16 @@ export const Button = ({status, size, name, date}:ButtonType) => {
 
 
     const dateDelivery = new Date(date!)
-    const formatDate = (date:any) => {
-        let dd = date.getDate();
+    const formatDate = (date:Date) => {
+        const day = date.getDate();
+        let dd
 
-        if (dd < 10) dd = `0${  dd}`;
+        if (day < 10) dd = `0${  dd}`;
 
-        let mm = date.getMonth() + 1;
+        const minute = date.getMonth() + 1;
+        let mm
 
-        if (mm < 10) mm = `0${  mm}`;
+        if (minute < 10) mm = `0${  mm}`;
 
         return `${dd  }.${  mm}` ;
     };

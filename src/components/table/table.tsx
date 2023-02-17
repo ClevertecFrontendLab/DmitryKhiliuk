@@ -1,7 +1,9 @@
+import {DataBookType} from '../../pages/book/book-page';
+
 import styles from './table.module.scss'
 
 type TableType = {
-    data: any,
+    data: DataBookType,
     keys: string[]
 }
 

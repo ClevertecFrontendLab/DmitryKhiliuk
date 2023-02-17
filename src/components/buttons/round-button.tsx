@@ -1,13 +1,11 @@
-import React from 'react';
-
 import cn from 'classnames'
 
 import styles from './round-button.module.scss'
 
 type RoundButtonType = {
     callButton: () => void
-    image: any
-    className?: any
+    image: string
+    className?: string
 }
 
 export const RoundButton = ({callButton, image, className}: RoundButtonType) => {

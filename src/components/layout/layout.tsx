@@ -3,9 +3,7 @@ import {Outlet} from 'react-router-dom';
 import cn from 'classnames';
 
 import {selectStatus} from '../../common/selectors';
-import {fetchBooks} from '../../redux/books-reducer';
-import {fetchCategories} from '../../redux/nav-reducer';
-import {useAppDispatch, useAppSelector} from '../../redux/store';
+import {useAppSelector} from '../../redux/store';
 import {Footer} from '../footer';
 import {Header} from '../header';
 import {Loader} from '../loader';
@@ -14,9 +12,10 @@ import {NavBurger} from '../nav-books';
 import styles from './layout.module.scss'
 
 
+
 export const Layout = React.memo(() => {
 
-    const dispatch = useAppDispatch()
+
     const status = useAppSelector(selectStatus)
 
 
@@ -31,14 +30,10 @@ export const Layout = React.memo(() => {
     const dropDownRef = useRef<HTMLDivElement>(null);
 
 
-    useEffect(() => {
-        dispatch(fetchCategories())
-        dispatch(fetchBooks())
-    },[dispatch])
 
     useEffect(() => {
-        function handler(event:any) {
-            if(!dropDownRef.current?.contains(event.target) ) {
+        function handler(event: { target: (Node|EventTarget|null) ; } ) {
+            if(!dropDownRef.current?.contains(event.target as Node| null ) ) {
                 setToggleBurgerMenu(false);
             }
         }

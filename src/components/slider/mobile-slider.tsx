@@ -1,18 +1,19 @@
 import {Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import {BookDetailType} from '../../common/types';
+import {selectBook} from '../../common/selectors';
+import {useAppSelector} from '../../redux/store';
 
 import './slider.scss';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-type MobileSliderType = {
-    book: BookDetailType
-}
 
-export const MobileSlider = ({book}:MobileSliderType) => (
+export const MobileSlider = () => {
+    const book = useAppSelector(selectBook)
+
+    return (
         <div>
             <Swiper
                 data-test-id='slide-big'
@@ -26,10 +27,13 @@ export const MobileSlider = ({book}:MobileSliderType) => (
                 {
                     book.images.map((item) => (
                         <SwiperSlide key={item.url} data-test-id='slide-mini'>
-                            <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images"/>
+                            <img src={(`https://strapi.cleverland.by${item.url}`)}
+                                 alt="product images"/>
                         </SwiperSlide>
                     ))
                 }
             </Swiper>
         </div>
+
     )
+}

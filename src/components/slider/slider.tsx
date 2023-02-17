@@ -2,7 +2,8 @@ import {useState} from 'react';
 import {Navigation, Thumbs} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import {BookDetailType} from '../../common/types';
+import {selectBook} from '../../common/selectors';
+import {useAppSelector} from '../../redux/store';
 
 import './slider.scss'
 
@@ -11,13 +12,12 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 
-type SliderType = {
-    book: BookDetailType
-}
 
-export const Slider = ({book}: SliderType) => {
+export const Slider = () => {
 
     const [activeThumb, setActiveThumb] = useState<any>(null)
+
+    const book = useAppSelector(selectBook)
 
     const imagesBlock = () => book.images.map((item) => (
         <SwiperSlide key={item.url}>

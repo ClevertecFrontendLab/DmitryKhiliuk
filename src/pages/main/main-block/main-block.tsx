@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cn from 'classnames'
 
 import search from '../../../assets/icons/search.svg';
-import {selectStatus} from '../../../common/selectors';
+import {selectBooks} from '../../../common/selectors';
 import {FilterButton, RoundButton} from '../../../components/buttons';
 import {DisplayView} from '../../../components/display-view';
-import {useAppSelector} from '../../../redux/store';
+import {fetchBooks} from '../../../redux/books-reducer';
+import {fetchCategories} from '../../../redux/nav-reducer';
+import {useAppDispatch, useAppSelector} from '../../../redux/store';
 
 import cancel from './input-search-cancel-button.svg'
 import {MainContent} from './main-content';
@@ -14,6 +16,14 @@ import styles from './main-block.module.scss'
 
 
 export const MainBlock = () =>  {
+
+    const dispatch = useAppDispatch()
+    const books = useAppSelector(selectBooks)
+
+    useEffect(() => {
+        dispatch(fetchCategories())
+        dispatch(fetchBooks())
+    },[dispatch])
 
     const [gridContent, setGridContent] = useState(true)
     const [deployedInput, setDeployedInput] = useState(false)
@@ -40,7 +50,7 @@ export const MainBlock = () =>  {
 
     return (
         <section className={styles.mainPage}>
-            <nav className={styles.navSettings}>
+            {books.length > 0 && <nav className={styles.navSettings}>
                 <div className={styles.formBox}>
                     <div className={cn(styles.inputBox, deployedInput && styles.deployedInput)} >
                          <img src={search} alt='alt'/>
@@ -66,7 +76,7 @@ export const MainBlock = () =>  {
                     </div>
                 </div>
                 }
-            </nav>
+            </nav>}
             <MainContent grid={gridContent}/>
         </section>
     );

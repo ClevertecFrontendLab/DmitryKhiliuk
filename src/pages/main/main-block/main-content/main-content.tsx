@@ -37,14 +37,14 @@ export const MainContent = ({grid}: MainContentType) => {
     const contentOrder = getContentOrder()
 
     const onClickHandler = (id:number) => {
-        dispatch(resetBookAC({content: {}, error: ''}))
+        dispatch(resetBookAC({}))
         navigate(`${id}`)
     }
 
     return (
         <div className={contentOrder}  >
             {selectCategoryBooks.map((book) => <div key={book.id} tabIndex={0} role='button' onKeyDown={() => onClickHandler(book.id)} onClick={() => onClickHandler(book.id)} data-test-id='card'>
-                <Card  book={book} grid={grid}/>
+                <Card  id={book.id} grid={grid}/>
             </div>)}
         </div>
     );

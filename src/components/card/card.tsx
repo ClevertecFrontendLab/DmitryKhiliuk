@@ -1,19 +1,24 @@
 import cat from '../../assets/icons/cat-crd.svg'
-import {BookType} from '../../common/types';
+import {selectBooksId} from '../../common/selectors';
+import {useAppSelector} from '../../redux/store';
 import {Button} from '../buttons';
 import {Rating} from '../rating';
 
 import styles from './card.module.scss'
 
-export type BookBlockType = BookType
+
 export type BookComponentType = {
-    book : BookBlockType
+    id : number
     grid: boolean
 }
 
 
 
-export const Card = ({book: {issueYear, rating, title, authors, image, booking, delivery}, grid}: BookComponentType) => {
+export const Card = ({id, grid}: BookComponentType) => {
+
+    const book = useAppSelector((state) => selectBooksId(state,id))
+    const {delivery, booking, image, rating, title, authors, issueYear} = book!
+
     let bookStatus: string
 
     if (booking) {
