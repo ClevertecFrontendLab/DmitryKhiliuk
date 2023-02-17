@@ -1,0 +1,33 @@
+@import "src/mixins.scss";
+.comment {
+    margin: 16px 0 45px 0;
+    .userData {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .userAva {
+            margin-right: 24px;
+        }
+        .userBox {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            @include body-large;
+            color: #727272;
+
+            .name {
+                margin-right: 24px;
+            }
+        }
+    }
+    .rating {
+        margin-top: 18px;
+    }
+    .commentText {
+        @include body-large;
+        margin-top: 16px;
+    }
+
+
+}
+

@@ -1,0 +1,14 @@
+.rating {
+    display: flex;
+    justify-content: flex-start;
+    .star {
+        margin-right: 10px;
+        @media screen and (max-width: 433px){
+            margin-right: 8.67px;
+        }
+    }
+    .text {
+        color: #A7A7A7;
+    }
+
+}

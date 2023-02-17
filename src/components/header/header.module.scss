@@ -1,0 +1,89 @@
+@import "src/mixins.scss";
+
+.header {
+    max-width: 1440px;
+    height: 105px;
+    margin: 0 auto;
+    @media screen and (max-width: 824px) {
+        height: 96px;
+    }
+    @media screen and (max-width: 500px) {
+        height: 76px;
+    }
+
+    .container {
+        //position: relative;
+        max-width: 1110px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .headerSide {
+            width: 285px;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            @media screen and (max-width: 824px) {
+                opacity: 0;
+                z-index: -1;
+                position: absolute;
+            }
+
+            .logo__text {
+                margin-left: 8px;
+            }
+        }
+
+        .header__main {
+            width: 825px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @media screen and (max-width: 824px) {
+                width: 672px;
+                padding: 0 16px 0 16px;
+                margin: 0 auto;
+                justify-content: flex-start;
+            }
+            .menu {
+                display: none;
+                @media screen and (max-width: 824px){
+                    display: block;
+                }
+            }
+            .title {
+                margin-left: 25px;
+            }
+
+            .user {
+                width: 180px;
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                @media screen and (max-width: 824px) {
+                    opacity: 0;
+                    position: absolute;
+                    z-index: -1;
+                }
+
+                .greeting {
+                    @include subtitle-small
+                }
+
+                .avatar {
+                    width: 58px;
+                    height: 58px;
+                    border: 1px solid white;
+                    border-radius: 100%;
+                    background: no-repeat center center fixed;
+                    background-size: cover;
+                    margin-left: 16px;
+                }
+            }
+        }
+    }
+}
