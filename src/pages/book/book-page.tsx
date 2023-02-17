@@ -4,13 +4,14 @@ import {useParams} from 'react-router-dom';
 import empty from '../../assets/icons/cat.svg'
 import comClose from '../../assets/icons/comment_close.svg'
 import comOpen from '../../assets/icons/comment_open.svg'
-import {selectBook, selectCategories} from '../../common/selectors';
+import {selectBook, selectCategories, selectStatus} from '../../common/selectors';
 import {Button} from '../../components/buttons';
 import {Comment} from '../../components/comment';
 import {Rating} from '../../components/rating';
 import {MobileSlider, Slider} from '../../components/slider';
 import {Table} from '../../components/table';
 import {fetchBook} from '../../redux/book-reducer';
+import {fetchCategories} from '../../redux/nav-reducer';
 import {useAppDispatch, useAppSelector} from '../../redux/store';
 
 import styles from './book-page.module.scss'
@@ -23,17 +24,18 @@ export type DataBookType = { [key: string]: string | string[] }
 
 export const BookPage = () => {
 
-    const book = useAppSelector(selectBook)
-    const categories = useAppSelector(selectCategories)
-
 
     const {id,category} = useParams()
     const dispatch = useAppDispatch()
 
     const bookId = +id!
 
-    useEffect(() => {
+    const book = useAppSelector(selectBook)
+    const status = useAppSelector(selectStatus)
+    const categories = useAppSelector(selectCategories)
 
+    useEffect(() => {
+        dispatch(fetchCategories())
         dispatch(fetchBook({bookId}))
     }, [dispatch, bookId])
 
@@ -75,10 +77,10 @@ export const BookPage = () => {
     return (
         <section className={styles.bookPage}>
             <div className={styles.container}>
-                <div className={styles.breadCrumbs}>
-                    {`${categories.find(el => el.path === category)?.name  } / `}
+                {status!=='loading'&&<div className={styles.breadCrumbs}>
+                    {`${categories.find(el => el.path === category)?.name} / `}
                     {Object.keys(book).length > 0 && book!.title}
-                </div>
+                </div>}
                 {Object.keys(book).length > 0 && <React.Fragment>
                     <div className={styles.mainBlock}>
                         <div className={styles.img}>

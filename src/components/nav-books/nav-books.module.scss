@@ -9,6 +9,12 @@
 .nav_books {
     .list {
         position: relative;
+        .item button {
+            display: inline;
+        }
+        button {
+            display: block;
+        }
         .menuItems {
             display: block;
             margin-top: 42px;

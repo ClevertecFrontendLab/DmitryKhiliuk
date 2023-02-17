@@ -1,3 +1,5 @@
+export const HOST = 'https://strapi.cleverland.by'
+
 export const MAIN = '/';
 export const BOOKS = '/books';
 export const ALL_BOOKS = '/books/all';

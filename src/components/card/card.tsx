@@ -1,4 +1,5 @@
 import cat from '../../assets/icons/cat-crd.svg'
+import {HOST} from '../../common/routes';
 import {selectBooksId} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 import {Button} from '../buttons';
@@ -34,7 +35,7 @@ export const Card = ({id, grid}: BookComponentType) => {
             {grid ?
                 <div className={styles.bookBlockGrid}>
                     <div className={styles.image}>
-                        <img src={image ? (`https://strapi.cleverland.by${ image.url}`) : cat}
+                        <img src={image ? (`${HOST}${ image.url}`) : cat}
                                   alt="img"/>
                     </div>
                     <div className={styles.subBlock}>
@@ -54,7 +55,7 @@ export const Card = ({id, grid}: BookComponentType) => {
                 </div> :
                 <div className={styles.bookBlockRow}>
                     <div className={styles.imageRow}>
-                        <div><img src={image ? (`https://strapi.cleverland.by${ image.url}`):cat} alt="img"/></div>
+                        <div><img src={image ? (`${HOST}${ image.url}`):cat} alt="img"/></div>
                     </div>
                     <div className={styles.subBlockRow}>
                         <div className={styles.descriptionRow}>

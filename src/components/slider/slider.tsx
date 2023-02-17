@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Navigation, Thumbs} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
+import {HOST} from '../../common/routes';
 import {selectBook} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 
@@ -21,7 +22,7 @@ export const Slider = () => {
 
     const imagesBlock = () => book.images.map((item) => (
         <SwiperSlide key={item.url}>
-            <img src={(`https://strapi.cleverland.by${item.url}`)} alt="product images"/>
+            <img src={(`${HOST}${item.url}`)} alt="product images"/>
         </SwiperSlide>
     ))
 

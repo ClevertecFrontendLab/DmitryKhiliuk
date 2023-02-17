@@ -1,6 +1,7 @@
 import {Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
+import {HOST} from '../../common/routes';
 import {selectBook} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 
@@ -27,7 +28,7 @@ export const MobileSlider = () => {
                 {
                     book.images.map((item) => (
                         <SwiperSlide key={item.url} data-test-id='slide-mini'>
-                            <img src={(`https://strapi.cleverland.by${item.url}`)}
+                            <img src={(`${HOST}${item.url}`)}
                                  alt="product images"/>
                         </SwiperSlide>
                     ))
