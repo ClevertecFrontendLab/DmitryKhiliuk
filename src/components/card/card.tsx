@@ -8,14 +8,16 @@ import {Rating} from '../rating';
 import styles from './card.module.scss'
 
 
+
 export type BookComponentType = {
     id : number
     grid: boolean
+    value: string
 }
 
 
 
-export const Card = ({id, grid}: BookComponentType) => {
+export const Card = ({id, grid, value}: BookComponentType) => {
 
     const book = useAppSelector((state) => selectBooksId(state,id))
     const {delivery, booking, image, rating, title, authors, issueYear} = book!
@@ -30,6 +32,24 @@ export const Card = ({id, grid}: BookComponentType) => {
         bookStatus = 'free'
     }
 
+    const light = (str: string) => {
+        if (!value) return str
+        const regexp = new RegExp(value, 'ig')
+        const matchValue = str.match(regexp)
+
+        if (matchValue) {
+            const result = str.split(regexp)
+
+            return result.map((el, index, array) => index < array.length - 1?
+                <>{}<span style={{display: 'inline'}}>{el}<span style={{color: '#FF5253', display: 'inline'}}>{matchValue.shift()}</span></span></>:
+                <>{}<span style={{display: 'inline'}}>{el}</span></>)
+
+        }
+
+        return str
+    }
+
+
     return (
         <div>
             {grid ?
@@ -43,9 +63,9 @@ export const Card = ({id, grid}: BookComponentType) => {
                             <Rating count={rating}/>
                         </div>
                         <div className={styles.description}>
-                            <div className={styles.title}><span>{title}</span></div>
+                            <div className={styles.title}><span>{light(title)}</span></div>
                             <div>
-                                <div className={styles.author}>{`${authors}, ${issueYear}`}</div>
+                                <div className={styles.author}>{authors.map((el) => <>{light(el)}, </> )}{issueYear}</div>
                             </div>
                         </div>
                         <div className={styles.button}>
@@ -59,8 +79,8 @@ export const Card = ({id, grid}: BookComponentType) => {
                     </div>
                     <div className={styles.subBlockRow}>
                         <div className={styles.descriptionRow}>
-                            <div className={styles.titleRow}><span>{title}</span></div>
-                            <div className={styles.authorRow}>{`${authors}, ${issueYear}`}</div>
+                            <div className={styles.titleRow}><span>{light(title)}</span></div>
+                            <div className={styles.authorRow}>{authors.map((el) => <>{light(el)}, </> )}{issueYear}</div>
                         </div>
                         <div className={styles.actionRow}>
                             <div className={styles.ratingBookRow}>

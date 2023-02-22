@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from 'react-router-dom';
 
-import {selectBooks, selectCategories} from '../../../../common/selectors';
+import {selectBooks, selectCategories, selectStatus} from '../../../../common/selectors';
 import {BooksType} from '../../../../common/types';
 import {Card} from '../../../../components/card';
 import {resetBookAC} from '../../../../redux/book-reducer';
@@ -17,6 +17,7 @@ export const MainContent = ({grid, value}: MainContentType) => {
 
     const books = useAppSelector(selectBooks)
     const categories = useAppSelector(selectCategories)
+    const status = useAppSelector(selectStatus)
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -52,16 +53,30 @@ export const MainContent = ({grid, value}: MainContentType) => {
 
     /* ---------------------------navigate to bookId----------------------------------------- */
 
-    const onClickHandler = (id:number) => {
+    const onClickHandler = (id: number) => {
         dispatch(resetBookAC({}))
         navigate(`${id}`)
     }
 
+
+    const empty = () => (status==='succeeded')&&<div className={styles.empty}><h3>{value?'По запросу ничего не найдено':'В этой категории книг ещё нет'}</h3></div>
+
+    const withoutBooks = empty()
+
+
+
     return (
-        <div className={contentOrder}  >
-            {selectCategoryBooks.map((book) => <div key={book.id} tabIndex={0} role='button' onKeyDown={() => onClickHandler(book.id)} onClick={() => onClickHandler(book.id)} data-test-id='card'>
-                <Card  id={book.id} grid={grid}/>
-            </div>)}
+        <div>
+            {selectCategoryBooks.length ?
+                <div className={contentOrder}>
+                    {selectCategoryBooks.map((book) => <div key={book.id} tabIndex={0} role='button'
+                                                            onKeyDown={() => onClickHandler(book.id)}
+                                                            onClick={() => onClickHandler(book.id)}
+                                                            data-test-id='card'>
+                        <Card id={book.id} grid={grid} value={value}/>
+                    </div>)}
+                </div> :
+                withoutBooks}
         </div>
     );
 };

@@ -15,3 +15,10 @@
 .contentRow {
     grid-template-columns : 100%;
 }
+.empty {
+    color: #A7A7A7;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
