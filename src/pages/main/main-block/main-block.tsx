@@ -51,7 +51,11 @@ export const MainBlock = () =>  {
         setValue(event.currentTarget.value)
     }
 
+    const [down, setDown] = useState(true)
 
+    const isSorted = () => {
+        setDown(!down)
+    }
 
     return (
         <section className={styles.mainPage}>
@@ -65,7 +69,7 @@ export const MainBlock = () =>  {
                     <div data-test-id='button-search-open'>
                         <RoundButton callButton={onClickHandlerForInput} image={search} className={`${cn(styles.searchButton, deployedInput && styles.noneButton)}`}  />
                     </div>
-                    {!deployedInput && <FilterButton/>}
+                    {!deployedInput && <FilterButton value={down} callBack={isSorted}/>}
                 </div>
                 {!deployedInput &&
                     <div className={styles.btnBox}>
@@ -82,7 +86,7 @@ export const MainBlock = () =>  {
                     </div>
                 }
             </nav>}
-            <MainContent grid={gridContent} value={value}/>
+            <MainContent grid={gridContent} value={value} sort={down}/>
         </section>
     );
 }

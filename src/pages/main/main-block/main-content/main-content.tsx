@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import {selectBooks, selectCategories, selectStatus} from '../../../../common/selectors';
@@ -11,9 +12,10 @@ import styles from './main-content.module.scss'
 type MainContentType = {
     grid: boolean
     value: string
+    sort: boolean
 }
 
-export const MainContent = ({grid, value}: MainContentType) => {
+export const MainContent = ({grid, value, sort}: MainContentType) => {
 
     const books = useAppSelector(selectBooks)
     const categories = useAppSelector(selectCategories)
@@ -45,6 +47,10 @@ export const MainContent = ({grid, value}: MainContentType) => {
     } else {
         selectCategoryBooks = filteringSearch(booksInThisCategory)
     }
+
+    /* ---------------------------sort content----------------------------------------- */
+
+    selectCategoryBooks.sort((a,b) => (sort ? b.rating  - a.rating: a.rating - b.rating) )
 
     /* ---------------------------grid or row view content----------------------------------------- */
 
