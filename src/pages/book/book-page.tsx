@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import empty from '../../assets/icons/cat.svg'
 import comClose from '../../assets/icons/comment_close.svg'
@@ -27,6 +27,7 @@ export const BookPage = () => {
 
     const {id,category} = useParams()
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const bookId = +id!
 
@@ -74,13 +75,17 @@ export const BookPage = () => {
         bookStatus = 'free'
     }
 
+    const onClickHandlerForCrumbs = () => {
+        navigate(-1)
+    }
+
     return (
         <section className={styles.bookPage}>
             <div className={styles.container}>
-                {status!=='loading'&&<div className={styles.breadCrumbs}>
+                {status!=='loading'&&<button type='button' onClick={onClickHandlerForCrumbs} className={styles.breadCrumbs}>
                     {`${categories.find(el => el.path === category)?.name} / `}
                     {Object.keys(book).length > 0 && book!.title}
-                </div>}
+                </button>}
                 {Object.keys(book).length > 0 && <React.Fragment>
                     <div className={styles.mainBlock}>
                         <div className={styles.img}>
