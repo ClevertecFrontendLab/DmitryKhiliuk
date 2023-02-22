@@ -10,9 +10,10 @@ import styles from './main-content.module.scss'
 
 type MainContentType = {
     grid: boolean
+    value: string
 }
 
-export const MainContent = ({grid}: MainContentType) => {
+export const MainContent = ({grid, value}: MainContentType) => {
 
     const books = useAppSelector(selectBooks)
     const categories = useAppSelector(selectCategories)
@@ -21,20 +22,35 @@ export const MainContent = ({grid}: MainContentType) => {
     const navigate = useNavigate()
     const {category} = useParams()
 
+    /* ---------------------------search and filter content-------------------------------------- */
+
     const currentCategory = categories.find((el) => el.path === category)
     const categoryName = currentCategory?.name
     const booksInThisCategory = books.filter((book) => book.categories.find((ctgrs) => ctgrs === categoryName))
 
     let selectCategoryBooks: BooksType
 
+    const filteringSearch = (filtrableBooks: BooksType) => filtrableBooks.filter((el) => {
+        const keys: string[] = []
+
+        el.authors.forEach((auth) => keys.push(auth))
+        keys.push(el.title)
+
+        return keys.find((auth) => auth.toLowerCase().includes(value.toLowerCase()))
+    })
+
     if (category === 'all') {
-        selectCategoryBooks = books
+        selectCategoryBooks = filteringSearch(books)
     } else {
-        selectCategoryBooks = booksInThisCategory
+        selectCategoryBooks = filteringSearch(booksInThisCategory)
     }
+
+    /* ---------------------------grid or row view content----------------------------------------- */
 
     const getContentOrder = () => grid ? `${styles.contentGrid}` : `${styles.contentGrid} ${styles.contentRow}`
     const contentOrder = getContentOrder()
+
+    /* ---------------------------navigate to bookId----------------------------------------- */
 
     const onClickHandler = (id:number) => {
         dispatch(resetBookAC({}))
