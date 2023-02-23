@@ -78,6 +78,8 @@ export const BookPage = () => {
        navigate(-1)
     }
 
+    const categoryForCrumbs = categories.find(el => el.path === category)?.name
+
     return (
         <section className={styles.bookPage}>
             <div className={styles.container}>
@@ -85,10 +87,10 @@ export const BookPage = () => {
                     <div className={styles.breadCrumbs}>
                         <button type='button' data-test-id='breadcrumbs-link'
                                 onClick={onClickHandlerForCrumbs}>
-                            {`${categories.find(el => el.path === category)?.name} /`}
+                            {categoryForCrumbs?categoryForCrumbs:'Все книги'}
                         </button>
-                        <span
-                            data-test-id='book-name'> {Object.keys(book).length > 0 && book!.title}</span>
+                        <span> / </span>
+                        <span data-test-id='book-name'>{Object.keys(book).length > 0 && book!.title}</span>
                     </div>
                 }
                 {Object.keys(book).length > 0 && <React.Fragment>

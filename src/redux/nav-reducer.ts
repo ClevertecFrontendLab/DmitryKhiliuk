@@ -14,7 +14,7 @@ export const fetchCategories = createAsyncThunk<CategoriesType>('nav/fetchCatego
         dispatch(setAppStatusAC({status: 'succeeded'}))
         const res = await booksAPI.getCategories()
 
-        res.data.unshift({id: 99, name: 'Все  книги', path: 'all'})
+        // res.data.unshift({id: 99, name: 'Все  книги', path: 'all'})
 
         return res.data
     } catch(err) {
