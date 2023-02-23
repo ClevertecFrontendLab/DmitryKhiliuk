@@ -65,7 +65,7 @@ export const MainContent = ({grid, value, sort}: MainContentType) => {
     }
 
 
-    const empty = () => (status==='succeeded')&&<div className={styles.empty}><h3>{value?'По запросу ничего не найдено':'В этой категории книг ещё нет'}</h3></div>
+    const empty = () => (status==='succeeded')&&<div className={styles.empty}>{value?<h3 data-test-id='search-result-not-found'>По запросу ничего не найдено</h3>:<h3  data-test-id='empty-category'>В этой категории книг ещё нет</h3>}</div>
 
     const withoutBooks = empty()
 

@@ -63,7 +63,7 @@ export const MainBlock = () =>  {
                 <div className={styles.formBox}>
                     <div className={cn(styles.inputBox, deployedInput && styles.deployedInput)} >
                         <img src={search} alt='alt'/>
-                        <input onChange={onChangeHandler}  type="search" className={styles.input} placeholder="Поиск книги или автора…" data-test-id='input-search'/>
+                        <input data-test-id='input-search' onChange={onChangeHandler}  type="search" className={styles.input} placeholder="Поиск книги или автора…" />
                         {deployedInput&&<button type='button' onClick={onClickCancel} data-test-id='button-search-close'><img src={cancel} alt="cancel"/></button>}
                     </div>
                     <div data-test-id='button-search-open'>

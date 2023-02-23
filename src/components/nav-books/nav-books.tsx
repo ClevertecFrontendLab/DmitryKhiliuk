@@ -50,10 +50,10 @@ export const NavBooks = ({setToggle}: NavBoxType) => {
                 </div>
                 {status === 'succeeded' &&  <div data-test-id='navigation-books'>{showcase && categories.map((el, index) => (
                     <div key={el.id} className={styles.item}>
-                        <NavLink to={`/books/${el.path}`} className={setActiveSubmenuItem}
+                        <NavLink to={`/books/${el.path}`} data-test-id={`navigation-${el.path}`} className={setActiveSubmenuItem}
                                  onClick={() => setToggle?.(false)}>{el.name}</NavLink>
                         <span
-                            className={styles.count}>{index ? books.filter((book) => book.categories.find((ctgrs) => ctgrs === el.name)).length :
+                            className={styles.count} data-test-id={`navigation-book-count-for-${el.path}`}>{index ? books.filter((book) => book.categories.find((ctgrs) => ctgrs === el.name)).length :
                             books.length}</span>
                     </div>)
                 )}</div>}

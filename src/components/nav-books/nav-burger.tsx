@@ -49,17 +49,17 @@ export const NavBurger = ({callBurger}: NavBoxType) => {
         <section className={styles.nav_books}>
             <div className={styles.list}>
                 <div data-test-id='burger-showcase' onClick={onClickHandler} onKeyDown={onClickHandler} role='button' tabIndex={0}>
-                    <NavLink to={BOOKS} style={{marginTop: 0, marginBottom: '8px'}} className={setActiveMenuItem} >
+                    <NavLink to={BOOKS} style={{marginTop: 0, marginBottom: '8px'}}  className={setActiveMenuItem} >
                         <h5>Витрина книг</h5>
                     </NavLink>
                     <img src={showcase?open:close} alt="menu"/>
                 </div>
                 {status === 'succeeded' && <div data-test-id='burger-books'>{showcase && categories.map((el, index) => (
                     <div key={el.id} className={styles.item}>
-                       <button type='button' onClick={toggleHandlerForMenuItems}> <NavLink to={`/books/${el.path}`} className={setActiveSubmenuItem}
+                       <button type='button' onClick={toggleHandlerForMenuItems}> <NavLink to={`/books/${el.path}`} data-test-id={`burger-${el.path}`} className={setActiveSubmenuItem}
                                  >{el.name}</NavLink></button>
                         <span
-                            className={styles.count}>{index ? books.filter((book) => book.categories.find((ctgrs) => ctgrs === el.name)).length :
+                            className={styles.count} data-test-id={`burger-book-count-for-${el.path}`}>{index ? books.filter((book) => book.categories.find((ctgrs) => ctgrs === el.name)).length :
                             books.length}</span>
                     </div>)
                 )}</div>}

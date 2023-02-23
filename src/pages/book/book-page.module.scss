@@ -37,8 +37,8 @@
         .breadCrumbs {
             width: 100%;
             height: 64px;
-            display: flex;
-            align-items: center;
+            //display: flex;
+            //align-items: center;
             color: #A7A7A7;
             @media screen and (max-width: 433px) {
                 @include info-large;

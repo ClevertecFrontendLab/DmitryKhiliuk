@@ -25,7 +25,7 @@ export type DataBookType = { [key: string]: string | string[] }
 export const BookPage = () => {
 
 
-    const {id,category} = useParams()
+    const {id, category} = useParams()
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -48,7 +48,6 @@ export const BookPage = () => {
     }
 
 
-
     const dataBook: DataBookType = {
         'Издательство': book.publish,
         'Год издания': book.issueYear,
@@ -69,33 +68,39 @@ export const BookPage = () => {
 
     if (book.booking) {
         bookStatus = 'reserved'
-    }else if (book.delivery) {
+    } else if (book.delivery) {
         bookStatus = 'taken'
     } else {
         bookStatus = 'free'
     }
 
     const onClickHandlerForCrumbs = () => {
-        navigate(-1)
+       navigate(-1)
     }
 
     return (
         <section className={styles.bookPage}>
             <div className={styles.container}>
-                {status!=='loading'&&<button type='button' onClick={onClickHandlerForCrumbs} className={styles.breadCrumbs}>
-                    {`${categories.find(el => el.path === category)?.name} / `}
-                    {Object.keys(book).length > 0 && book!.title}
-                </button>}
+                {status !== 'loading' &&
+                    <div className={styles.breadCrumbs}>
+                        <button type='button' data-test-id='breadcrumbs-link'
+                                onClick={onClickHandlerForCrumbs}>
+                            {`${categories.find(el => el.path === category)?.name} /`}
+                        </button>
+                        <span
+                            data-test-id='book-name'> {Object.keys(book).length > 0 && book!.title}</span>
+                    </div>
+                }
                 {Object.keys(book).length > 0 && <React.Fragment>
                     <div className={styles.mainBlock}>
                         <div className={styles.img}>
                             {book.images ?
                                 <div className={styles.slider}>{window.innerWidth > 824 ?
-                                    <Slider /> : <MobileSlider />}</div> :
+                                    <Slider/> : <MobileSlider/>}</div> :
                                 <div className={styles.empty}><img src={empty} alt="cat"/></div>}
                         </div>
                         <div className={styles.description}>
-                            <h3 className={styles.title}>
+                            <h3 className={styles.title} data-test-id='book-title'>
                                 {book.title}
                             </h3>
                             <h5 className={styles.author}>

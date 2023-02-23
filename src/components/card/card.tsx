@@ -41,8 +41,8 @@ export const Card = ({id, grid, value}: BookComponentType) => {
             const result = str.split(regexp)
 
             return result.map((el, index, array) => index < array.length - 1?
-                <>{}<span style={{display: 'inline'}}>{el}<span style={{color: '#FF5253', display: 'inline'}}>{matchValue.shift()}</span></span></>:
-                <>{}<span style={{display: 'inline'}}>{el}</span></>)
+                <div >{}<span  style={{display: 'inline'}}>{el}<span data-test-id='highlight-matches' style={{color: '#FF5253', display: 'inline'}}>{matchValue.shift()}</span></span></div>:
+                <div >{}<span  style={{display: 'inline'}}>{el}</span></div>)
 
         }
 
