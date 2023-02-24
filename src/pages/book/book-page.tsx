@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import empty from '../../assets/icons/cat.svg'
 import comClose from '../../assets/icons/comment_close.svg'
@@ -25,8 +25,9 @@ export type DataBookType = { [key: string]: string | string[] }
 export const BookPage = () => {
 
 
-    const {id,category} = useParams()
+    const {id, category} = useParams()
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const bookId = +id!
 
@@ -45,7 +46,6 @@ export const BookPage = () => {
     const onClickHandler = () => {
         setCommentOpen(!commentOpen)
     }
-
 
 
     const dataBook: DataBookType = {
@@ -68,29 +68,41 @@ export const BookPage = () => {
 
     if (book.booking) {
         bookStatus = 'reserved'
-    }else if (book.delivery) {
+    } else if (book.delivery) {
         bookStatus = 'taken'
     } else {
         bookStatus = 'free'
     }
 
+    const onClickHandlerForCrumbs = () => {
+       navigate(-1)
+    }
+
+    const categoryForCrumbs = categories.find(el => el.path === category)?.name
+
     return (
         <section className={styles.bookPage}>
             <div className={styles.container}>
-                {status!=='loading'&&<div className={styles.breadCrumbs}>
-                    {`${categories.find(el => el.path === category)?.name} / `}
-                    {Object.keys(book).length > 0 && book!.title}
-                </div>}
+                {status !== 'loading' &&
+                    <div className={styles.breadCrumbs}>
+                        <button type='button' data-test-id='breadcrumbs-link'
+                                onClick={onClickHandlerForCrumbs}>
+                            {categoryForCrumbs?categoryForCrumbs:'Все книги'}
+                        </button>
+                        <span> / </span>
+                        <span data-test-id='book-name'>{Object.keys(book).length > 0 && book!.title}</span>
+                    </div>
+                }
                 {Object.keys(book).length > 0 && <React.Fragment>
                     <div className={styles.mainBlock}>
                         <div className={styles.img}>
                             {book.images ?
                                 <div className={styles.slider}>{window.innerWidth > 824 ?
-                                    <Slider /> : <MobileSlider />}</div> :
+                                    <Slider/> : <MobileSlider/>}</div> :
                                 <div className={styles.empty}><img src={empty} alt="cat"/></div>}
                         </div>
                         <div className={styles.description}>
-                            <h3 className={styles.title}>
+                            <h3 className={styles.title} data-test-id='book-title'>
                                 {book.title}
                             </h3>
                             <h5 className={styles.author}>
