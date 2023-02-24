@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import {selectBooks, selectCategories, selectStatus} from '../../../../common/selectors';
@@ -65,22 +64,21 @@ export const MainContent = ({grid, value, sort}: MainContentType) => {
     }
 
 
+
     const empty = () => (status==='succeeded')&&<div className={styles.empty}>{value?<h3 data-test-id='search-result-not-found'>По запросу ничего не найдено</h3>:<h3  data-test-id='empty-category'>В этой категории книг ещё нет</h3>}</div>
 
     const withoutBooks = empty()
-
 
 
     return (
         <div>
             {selectCategoryBooks.length ?
                 <div className={contentOrder}>
-                    {selectCategoryBooks.map((book) => <div key={book.id} tabIndex={0} role='button'
-                                                            onKeyDown={() => onClickHandler(book.id)}
+                    {selectCategoryBooks.map((book) => <button key={book.id} type='button'
                                                             onClick={() => onClickHandler(book.id)}
                                                             data-test-id='card'>
                         <Card id={book.id} grid={grid} value={value}/>
-                    </div>)}
+                    </button>)}
                 </div> :
                 withoutBooks}
         </div>

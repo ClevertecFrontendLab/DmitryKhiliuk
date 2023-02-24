@@ -17,7 +17,7 @@ export const FilterButton = ({value, callBack}: FilterButtonType) => {
     }
 
    return <button type="button" className={styles.filter} onClick={onClickHandler} data-test-id='sort-rating-button'>
-        <img src={value?filterDown:filterUp} alt="filter"/>
+        <img src={value ? filterDown : filterUp} alt="filter"/>
         <div className={styles.text}>По рейтингу</div>
     </button>
 
