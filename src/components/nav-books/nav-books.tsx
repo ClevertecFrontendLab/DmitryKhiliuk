@@ -52,7 +52,7 @@ export const NavBooks = ({setToggle}: NavBoxType) => {
                 </div>
                 {status === 'succeeded' &&
                     <div>
-                        <NavLink to={ALL_BOOKS} data-test-id='navigation-books' className={setActiveSubmenuItem} style={{marginLeft: '24px'}}>Все книги</NavLink>
+                        {showcase &&<NavLink to={ALL_BOOKS} data-test-id='navigation-books' className={setActiveSubmenuItem} style={{marginLeft: '24px'}}>Все книги</NavLink>}
                         <div >{showcase && categories.map((el) => (
                             <div key={el.id} className={styles.item}>
                                 <NavLink to={`/books/${el.path}`}

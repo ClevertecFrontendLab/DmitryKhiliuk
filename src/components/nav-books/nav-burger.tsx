@@ -56,9 +56,11 @@ export const NavBurger = ({callBurger}: NavBoxType) => {
                 </div>
                 {status === 'succeeded' &&
                     <div>
-                        <button type='button' onClick={toggleHandlerForMenuItems}>
-                            <NavLink to={ALL_BOOKS} data-test-id='burger-books' className={setActiveSubmenuItem} style={{marginLeft: '24px'}}>Все книги</NavLink>
-                        </button>
+                        {showcase &&<button type='button' onClick={toggleHandlerForMenuItems}>
+                            <NavLink to={ALL_BOOKS} data-test-id='burger-books'
+                                     className={setActiveSubmenuItem} style={{marginLeft: '24px'}}>Все
+                                книги</NavLink>
+                        </button>}
                         <div >{showcase && categories.map((el) => (
                             <div key={el.id} className={styles.item}>
                                 <button type='button' onClick={toggleHandlerForMenuItems}> <NavLink to={`/books/${el.path}`} data-test-id={`burger-${el.path}`} className={setActiveSubmenuItem}

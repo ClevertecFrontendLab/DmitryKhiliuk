@@ -1,6 +1,6 @@
 /// <reference types='cypress' />
 
-describe('search and sort', () => {
+describe('search and sort', { testIsolation: false }, () => {
     before(() => {
         cy.intercept('/api/categories').as('categories');
         cy.intercept('/api/books').as('books');

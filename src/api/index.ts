@@ -3,7 +3,7 @@ import axios from 'axios';
 import {HOST} from '../common/routes';
 
 const instance = axios.create({
-    baseURL: 'https://strapi.cleverland.by'
+    baseURL: HOST
 })
 
 export const booksAPI = {
