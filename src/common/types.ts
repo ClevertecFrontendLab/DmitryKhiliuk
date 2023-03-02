@@ -99,5 +99,30 @@ export type AppStatusType = {
     status: 'idle' | 'loading' | 'succeeded' | 'failed'
 }
 
+/* AUTH */
+
+export type AuthDataType = {
+    identifier: string
+    password: string
+}
+
+export type RegistrationDataType = {
+    username: string
+    password: string
+    firstName: string
+    lastName: string
+    phone: string
+    email: string
+}
+
+export type ResetDataType = {
+    email: string
+}
+
+export type RecoveryDataType = {
+    password: string
+    passwordConfirmation: string
+}
+
 
 

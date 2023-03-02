@@ -1,10 +1,10 @@
 import {useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
 import close from '../../assets/icons/menu-close.svg';
 import open from '../../assets/icons/menu-open.svg';
-import {AGREEMENT, ALL_BOOKS, BOOKS, PROFILE, RULES} from '../../common/routes';
+import {AGREEMENT, ALL_BOOKS, AUTH, BOOKS, PROFILE, RULES} from '../../common/routes';
 import {selectBooks, selectCategories, selectStatus} from '../../common/selectors';
 import {setAppStatusAC} from '../../redux/app-reducer';
 import {useAppDispatch, useAppSelector} from '../../redux/store';
@@ -22,6 +22,7 @@ export const NavBurger = ({callBurger}: NavBoxType) => {
     const books = useAppSelector(selectBooks)
     const status = useAppSelector(selectStatus)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const [showcase, setShowcase] = useState(true)
 
@@ -33,6 +34,8 @@ export const NavBurger = ({callBurger}: NavBoxType) => {
         dispatch(setAppStatusAC({status: 'idle'}))
         callBurger(event)
         setShowcase(false)
+        localStorage.clear();
+        navigate(AUTH)
     }
 
     const toggleHandlerForMenuItems = (event:React.MouseEvent <HTMLButtonElement>) => {

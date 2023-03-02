@@ -1,5 +1,6 @@
 import {AppRootStateType} from '../redux/store';
 
+export const selectIsLoggedIn = (state: AppRootStateType) => state.auth.isLoggedIn
 export const selectBooks = (state: AppRootStateType) => state.books.content
 export const selectCategories = (state: AppRootStateType) => state.navigation
 export const selectStatus = (state: AppRootStateType) => state.app.status

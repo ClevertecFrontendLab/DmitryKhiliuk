@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Outlet} from 'react-router-dom';
+import {Outlet, useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
-import {selectStatus} from '../../common/selectors';
+import {selectIsLoggedIn, selectStatus} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 import {Footer} from '../footer';
 import {Header} from '../header';
@@ -12,20 +12,19 @@ import {NavBurger} from '../nav-books';
 import styles from './layout.module.scss'
 
 
-
 export const Layout = React.memo(() => {
 
 
     const status = useAppSelector(selectStatus)
+    const auth = useAppSelector(selectIsLoggedIn)
 
+    const navigate = useNavigate()
 
     const [toggleBurgerMenu, setToggleBurgerMenu] = useState(false)
     const toggleMenuHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         setToggleBurgerMenu(!toggleBurgerMenu)
     }
-
-
 
     const dropDownRef = useRef<HTMLDivElement>(null);
 

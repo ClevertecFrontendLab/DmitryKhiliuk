@@ -74,11 +74,12 @@ export const MainContent = ({grid, value, sort}: MainContentType) => {
         <div>
             {selectCategoryBooks.length ?
                 <div className={contentOrder}>
-                    {selectCategoryBooks.map((book) => <button key={book.id} type='button'
+                    {selectCategoryBooks.map((book) => <div key={book.id} role='button' tabIndex={0}
                                                             onClick={() => onClickHandler(book.id)}
+                                                            onKeyDown={() => onClickHandler(book.id)}
                                                             data-test-id='card'>
                         <Card id={book.id} grid={grid} value={value}/>
-                    </button>)}
+                    </div>)}
                 </div> :
                 withoutBooks}
         </div>
