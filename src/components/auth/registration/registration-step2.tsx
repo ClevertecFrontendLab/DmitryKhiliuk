@@ -1,15 +1,16 @@
 import {useForm} from 'react-hook-form';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 
-import {AUTH, RECOVERY} from '../../../common/routes';
+import {AUTH, RECOVERY, REG_2, REG_3} from '../../../common/routes';
 import {AuthDataType, RegistrationDataType} from '../../../common/types';
-import {LogIn} from '../../../redux/auth-reducer';
+import {addFromStepTwo, LogIn} from '../../../redux/auth-reducer';
 import {useAppDispatch} from '../../../redux/store';
 
 import styles from '../auth.module.scss'
 
 export const RegistrationStep2 = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const {
         register,
@@ -19,9 +20,8 @@ export const RegistrationStep2 = () => {
     } = useForm<RegistrationDataType>()
 
     const onSubmit = (data:RegistrationDataType) => {
-        console.log(data)
-       // dispatch(LogIn(data))
-        reset()
+        dispatch(addFromStepTwo(data))
+        navigate(REG_3)
 
     }
 

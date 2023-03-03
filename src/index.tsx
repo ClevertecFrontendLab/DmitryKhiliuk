@@ -17,6 +17,7 @@ import {
 import {Auth} from './components/auth/authorization';
 import {Reset} from './components/auth/recovery';
 import {RegistrationStep1, RegistrationStep2, RegistrationStep3} from './components/auth/registration';
+import {Registration} from './components/auth/registration/registration';
 import {Layout} from './components/layout';
 import {BookPage} from './pages/book';
 import {MainPage} from './pages/main';
@@ -26,7 +27,6 @@ import {store} from './redux/store';
 import {InterceptorApi} from './interceptor-api';
 
 import './index.css';
-import {Registration} from "./components/auth/registration/registration";
 
 
 const root = ReactDOM.createRoot(

@@ -6,7 +6,7 @@ type ContextType = RegistrationDataType;
 
 export const Registration = () => {
 const x = () => {
-  
+
 }
     return (
         <div>
