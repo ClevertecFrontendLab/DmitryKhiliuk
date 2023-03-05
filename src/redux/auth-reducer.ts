@@ -9,6 +9,7 @@ export const slice = createSlice({
     name: 'auth',
     initialState: {
         isLoggedIn: false,
+        error: null,
         registrationDate: {
             username: '',
             password: '',
@@ -23,6 +24,11 @@ export const slice = createSlice({
             const esState = state
 
             esState.isLoggedIn = action.payload
+        },
+        setErrorAC(state, action) {
+            const esState = state
+
+            esState.error = action.payload
         },
         addFromStepOne(state, action) {
             const esState = state
@@ -46,7 +52,7 @@ export const slice = createSlice({
 })
 
 export const authReducer = slice.reducer
-export const {isLoggedInAC} = slice.actions
+export const {isLoggedInAC, setErrorAC} = slice.actions
 export const {addFromStepOne, addFromStepTwo, addFromStepThree} = slice.actions
 
 export const LogIn = createAsyncThunk('auth/logIn', async (data:AuthDataType, {dispatch, rejectWithValue}) => {
@@ -66,6 +72,7 @@ export const LogIn = createAsyncThunk('auth/logIn', async (data:AuthDataType, {d
         if(!error.response){
             throw err
         }
+        dispatch(setErrorAC(error.response.status))
 
         return rejectWithValue(error.response.data)
     }

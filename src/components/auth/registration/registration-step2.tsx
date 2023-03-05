@@ -6,7 +6,7 @@ import {AuthDataType, RegistrationDataType} from '../../../common/types';
 import {addFromStepTwo, LogIn} from '../../../redux/auth-reducer';
 import {useAppDispatch} from '../../../redux/store';
 
-import styles from '../auth.module.scss'
+import styles from '../authorization/auth.module.scss'
 
 export const RegistrationStep2 = () => {
     const dispatch = useAppDispatch()

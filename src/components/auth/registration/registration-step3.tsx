@@ -8,7 +8,7 @@ import {AuthDataType, RegistrationDataType} from '../../../common/types';
 import {addFromStepThree, addFromStepTwo, LogIn, Registration} from '../../../redux/auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
 
-import styles from '../auth.module.scss'
+import styles from '../authorization/auth.module.scss'
 
 
 

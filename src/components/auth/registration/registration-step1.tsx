@@ -6,7 +6,7 @@ import {RegistrationDataType} from '../../../common/types';
 import {addFromStepOne} from '../../../redux/auth-reducer';
 import {useAppDispatch} from '../../../redux/store';
 
-import styles from '../auth.module.scss'
+import styles from '../authorization/auth.module.scss'
 
 
 export const RegistrationStep1 = () => {

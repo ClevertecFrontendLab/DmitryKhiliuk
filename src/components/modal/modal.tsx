@@ -16,7 +16,7 @@ export const Modal = ({children}:PropsType) => {
         <div className={styles.main}>
             <h3 className={styles.text}>Cleverland</h3>
             <div className={styles.content}>
-                {children}
+                <div className={styles.children}>{children}</div>
             </div>
         </div>
     );

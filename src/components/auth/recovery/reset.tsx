@@ -6,7 +6,7 @@ import {AuthDataType, RecoveryDataType, ResetDataType} from '../../../common/typ
 import {LogIn} from '../../../redux/auth-reducer';
 import {useAppDispatch} from '../../../redux/store';
 
-import styles from '../auth.module.scss';
+import styles from '../authorization/auth.module.scss';
 
 export const Reset = () => {
     const dispatch = useAppDispatch()
