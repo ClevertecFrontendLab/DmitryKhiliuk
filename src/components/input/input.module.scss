@@ -29,12 +29,13 @@
             border: none;
             margin-left: 12px;
 
-            &:focus, &:not(:placeholder-shown){
+            &:focus,
+            &:not(:placeholder-shown){
                 outline: none;
             }
 
             &:focus ~ label,
-            &:valid ~ label,{
+            &:not(:placeholder-shown) ~ label,{
                 @include info-large;
                 color: #A7A7A7;
                 transform: translateY(5px) scale(0.8);
@@ -45,4 +46,11 @@
         width: 24px;
         margin: 22px 0 0 4px;
     }
+}
+.mainError {
+   border-bottom: solid 1px #F42C4F;
+}
+.errorMessage {
+    color: #F42C4F;
+    @include body-small;
 }

@@ -11,7 +11,10 @@
             .recovery {
                 @include info-large;
                 margin: 16px 0 32px 0;
-                color: #A7A7A7
+                color: #A7A7A7;
+                .recoveryText {
+                    color: #F42C4F;
+                }
             }
         }
         .registerText {

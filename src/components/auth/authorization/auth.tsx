@@ -2,17 +2,17 @@ import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {NavLink, useNavigate} from 'react-router-dom';
 
+import dart from '../../../assets/icons/modal/Icon_Chevron.svg'
 import {MAIN, RECOVERY, REG} from '../../../common/routes';
 import {selectErrorStatus, selectIsLoggedIn} from '../../../common/selectors';
 import {AuthDataType} from '../../../common/types';
 import {LogIn, setErrorAC} from '../../../redux/auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
+import {Button} from '../../buttons';
 import {Input} from '../../input';
 import {Modal} from '../../modal';
-import dart from '../../../assets/icons/modal/Icon_Chevron.svg'
 
 import styles from './auth.module.scss'
-import {Button} from "../../buttons";
 
 export const Auth = () => {
 
@@ -34,8 +34,11 @@ export const Auth = () => {
         handleSubmit,
         formState: {errors},
         reset
-    } = useForm<AuthDataType>()
+    } = useForm<AuthDataType>({
+        mode: 'onBlur'
+    });
 
+    console.log(errors)
     const onSubmit = async (data: AuthDataType) => {
         try {
             const response = await dispatch(LogIn(data))
@@ -67,7 +70,7 @@ export const Auth = () => {
     return (
         <div className={styles.main}>
             <Modal>
-                {error && {/* error !== 400 */} ?
+                {error && error !== 400  ?
                     <div className={styles.errorContent}>
                         <h4 className={styles.title}>Вход не выполнен</h4>
                         <div className={styles.errorText}>Что-то пошло не так. Попробуйте ещё раз</div>
@@ -76,11 +79,13 @@ export const Auth = () => {
                     <div className={styles.content}>
                         <h4 className={styles.title}>Вход в личный кабинет</h4>
                         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                            <Input register={register} name='identifier' label='Логин' type='text'/>
-                            <Input register={register} name='password' label='Пароль'
-                                   type='password'/>
-                            <div className={styles.recovery}><NavLink to={RECOVERY}>Забыли логин или
-                                пароль?</NavLink></div>
+                            <Input register={register} name='identifier' label='Логин' type='text' errorMessage={errors.identifier?.message}/>
+                            <Input register={register} name='password' label='Пароль' type='password' errorMessage={errors.password?.message}/>
+
+                            <div className={styles.recovery}>
+                                {error === 400 && <div className={styles.recoveryText}>Неправильный логин или пароль!</div>}
+                                <NavLink to={RECOVERY}>{error === 400 ? 'Восстановить?': 'Забыли логин или пароль?'}</NavLink>
+                            </div>
                             <Button size='large' type='submit' name='Вход'/>
                         </form>
                         <div>
