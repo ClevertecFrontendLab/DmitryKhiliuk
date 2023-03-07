@@ -5,22 +5,35 @@ import cn from 'classnames';
 import eyeClose from '../../assets/icons/modal/Eye-close.svg'
 import eyeOpen from '../../assets/icons/modal/Eye-open.svg'
 import success from '../../assets/icons/modal/Icon_Other.svg'
-import {AuthDataType} from '../../common/types';
+import {selectErrorStatus} from '../../common/selectors';
+import {useAppSelector} from '../../redux/store';
 
 import styles from './input.module.scss'
-import {useAppSelector} from "../../redux/store";
-import {selectErrorStatus} from "../../common/selectors";
 
 
 type InputType = {
-    register:   UseFormRegister<AuthDataType>
+    register:  UseFormRegister<any>
     errorMessage?:  string
-    name: 'password' | 'identifier'
+    name: 'password' | 'identifier' | 'username' | 'firstName' | 'lastName' | 'email' | 'phone'
     label: string
     type: string
+    required?: string
+    validation?: (value:string) => void
+    errorFlag?: string
+    pattern?: {value: RegExp, message: string}
+    minLength?: {value: number, message: string}
 }
 
-export const Input = ({register, name, label, type, errorMessage}:InputType) => {
+export const Input = ({register,
+                          name,
+                          label,
+                          type,
+                          errorMessage,
+                          required,
+                          validation,
+                          errorFlag,
+                          pattern,
+                          minLength}:InputType) => {
 
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState('')
@@ -33,14 +46,19 @@ export const Input = ({register, name, label, type, errorMessage}:InputType) => 
 
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
        setValue(e.currentTarget.value)
+        validation!(e.currentTarget.value)
     }
+
 
 
     return (
         <div>
-            <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError)}>
+            <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>
                 <div className={styles.inputBox}>
-                    <input className={styles.input} {...register(name, {required: 'Поле не может быть пустым'})} type={open ? 'text' : type}    placeholder=' ' onChange={onChangeHandler}/>
+                    <input className={styles.input}
+                           {...register(name,
+                               {required: required ? required : 'Поле не может быть пустым', minLength, pattern,})}
+                           type={open ? 'text' : type}    placeholder=' ' onChange={onChangeHandler}/>
                     <label className={styles.label} htmlFor={name}>{label}</label>
                 </div>
                 <img className={styles.img} src={success} alt="success" style={{opacity: 0}}/>

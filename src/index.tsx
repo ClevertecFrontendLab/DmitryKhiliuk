@@ -10,14 +10,14 @@ import {
     AUTH,
     BOOK,
     BOOKS,
-    MAIN, RECOVERY,
-    REG, REG_1, REG_2, REG_3,
+    MAIN,
+    RECOVERY,
+    REG,
     RULES
 } from './common/routes';
 import {Auth} from './components/auth/authorization';
 import {Reset} from './components/auth/recovery';
-import {RegistrationStep1, RegistrationStep2, RegistrationStep3} from './components/auth/registration';
-import {Registration} from './components/auth/registration/registration';
+import {Registration} from './components/auth/registration';
 import {Layout} from './components/layout';
 import {BookPage} from './pages/book';
 import {MainPage} from './pages/main';
@@ -42,10 +42,10 @@ root.render(
                 <Routes>
                     <Route path={AUTH} element={<Auth/>}/>
                     <Route path={REG} element={<Registration/>}>
-                        <Route path={REG} element={<Navigate to={REG_1}/>}/>
+                        {/* <Route path={REG} element={<Navigate to={REG_1}/>}/>
                         <Route path={REG_1} element={<RegistrationStep1 />}/>
                         <Route path={REG_2} element={<RegistrationStep2/>}/>
-                        <Route path={REG_3} element={<RegistrationStep3/>}/>
+                        <Route path={REG_3} element={<RegistrationStep3/>}/> */}
                     </Route>
                     <Route path={RECOVERY} element={<Reset/>}/>
                     <Route path={MAIN} element={<Layout/>}>

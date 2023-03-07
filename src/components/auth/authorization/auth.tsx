@@ -38,12 +38,12 @@ export const Auth = () => {
         mode: 'onBlur'
     });
 
-    console.log(errors)
+
     const onSubmit = async (data: AuthDataType) => {
         try {
             const response = await dispatch(LogIn(data))
 
-            console.log(data)
+
             localStorage.setItem('jwt', response.payload.jwt)
             if (response.payload.jwt) {
                 navigate(MAIN)
@@ -79,8 +79,16 @@ export const Auth = () => {
                     <div className={styles.content}>
                         <h4 className={styles.title}>Вход в личный кабинет</h4>
                         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                            <Input register={register} name='identifier' label='Логин' type='text' errorMessage={errors.identifier?.message}/>
-                            <Input register={register} name='password' label='Пароль' type='password' errorMessage={errors.password?.message}/>
+                            <Input register={register}
+                                   name='identifier'
+                                   label='Логин'
+                                   type='text'
+                                   errorMessage={errors.identifier?.message}/>
+                            <Input register={register}
+                                   name='password'
+                                   label='Пароль'
+                                   type='password'
+                                   errorMessage={errors.password?.message}/>
 
                             <div className={styles.recovery}>
                                 {error === 400 && <div className={styles.recoveryText}>Неправильный логин или пароль!</div>}

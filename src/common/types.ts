@@ -104,6 +104,7 @@ export type AppStatusType = {
 export type AuthDataType = {
     identifier: string
     password: string
+    username: string
 }
 
 export type RegistrationDataType = {
@@ -124,5 +125,5 @@ export type RecoveryDataType = {
     passwordConfirmation: string
 }
 
-
+export type DataType = AuthDataType | RegistrationDataType | ResetDataType | RecoveryDataType
 

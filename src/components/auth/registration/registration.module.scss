@@ -1,0 +1,71 @@
+@import "src/mixins.scss";
+.main {
+    .content {
+        width: 416px;
+        margin: 48px 56px;
+        .title {
+
+        }
+        .step {
+            margin-top: 8px;
+            @include subtitle-small
+        }
+        .form {
+            margin-bottom: 16px;
+            .hintUserName {
+                @include info-large;
+                margin-left: 12px;
+                .latinUserNameHint {
+                    color: #F42C4F;
+                }
+                .numberUserNameHint {
+                    color: #F42C4F;
+                }
+            }
+            .hintUserNameError {
+                @include info-large;
+                color: #F42C4F;
+                margin-left: 12px;
+            }
+            .hintPassword {
+                @include info-large;
+                margin-left: 12px;
+                .lengthPasswordHint {
+                    color: #F42C4F;
+                }
+                .upperCasePasswordHint {
+                    color: #F42C4F;
+                }
+                .numberPasswordHint {
+                    color: #F42C4F;
+                }
+            }
+            .hintPasswordError {
+                @include info-large;
+                color: #F42C4F;
+                margin-left: 12px;
+            }
+            .space {
+                height: 50px;
+
+            }
+        }
+        .registerText {
+            @include body-large;
+            margin-right: 16px;
+            color: #727272;
+        }
+        .register {
+            @include button-small;
+            .link {
+                display: inline-flex;
+                justify-content: flex-start;
+                align-items: center;
+                .text {
+                    margin-right: 12px;
+                }
+            }
+
+        }
+    }
+}
