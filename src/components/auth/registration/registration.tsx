@@ -91,10 +91,11 @@ export const Registration = () => {
 
    /*  const [pass, setPass] = useState(false) */
     const [length, setLength] = useState(true)
-    const [upperCase, setUpperCas] = useState(true)
+    const [upperCase, setUpperCase] = useState(true)
     const [numbPass, setNumbPass] = useState(true)
 
     let pass = false
+
     if (length&&upperCase&&numbPass) {
         pass = true
     }
@@ -103,7 +104,7 @@ export const Registration = () => {
     const getValidPassword = (value:string) => {
         // setPass(/^[0-9A-ZА-Я]{0,8}/.test(value))
         setLength( /.{8,}/.test(value))
-        setUpperCas( /[A-ZА-Я]/.test(value))
+        setUpperCase( /[A-ZА-Я]/.test(value))
         setNumbPass(/[0-9]/.test(value))
     }
 

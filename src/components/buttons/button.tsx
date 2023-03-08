@@ -9,14 +9,18 @@ type ButtonType = {
     date?: string
     type?: 'button' | 'submit' | 'reset' | undefined
     callBack: () => void
+    disableButton?: boolean
 
 }
 
-export const Button = ({status, size, name, date, type, callBack}:ButtonType) => {
+export const Button = ({status, size, name, date, type, callBack, disableButton}:ButtonType) => {
 
     let disable = false
     let buttonName
 
+    if (disableButton) {
+        disable = true
+    }
 
     const dateDelivery = new Date(date!)
     const formatDate = (date:Date) => {

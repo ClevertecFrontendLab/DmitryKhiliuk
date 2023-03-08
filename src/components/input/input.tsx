@@ -15,7 +15,7 @@ import styles from './input.module.scss'
 type InputType = {
     register:  UseFormRegister<any>
     errorMessage?:  string
-    name: 'password' | 'identifier' | 'username' | 'firstName' | 'lastName' | 'email' | 'phone'
+    name: 'password' | 'identifier' | 'username' | 'firstName' | 'lastName' | 'email' | 'phone' | 'passwordConfirmation'
     label: string
     type: string
     required?: string
@@ -85,7 +85,7 @@ export const Input = ({register,
                     <label className={styles.label} htmlFor={name}>{label}</label>
                 </div>
                 <img className={styles.img} src={success} alt="success" style={{opacity: successPass && value ? 1 : 0}}/>
-                {name === 'password' && value && <button onClick={onClickHandler} type='button'><img className={styles.img}
+                {type === 'password' && value && <button onClick={onClickHandler} type='button'><img className={styles.img}
                                                                                                      src={open ? eyeOpen : eyeClose}
                                                                                                      alt="eye"/></button>}
             </div>

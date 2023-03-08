@@ -16,7 +16,7 @@ import {
     RULES
 } from './common/routes';
 import {Auth} from './components/auth/authorization';
-import {Reset} from './components/auth/recovery';
+import {Forgot} from './components/auth/recovery';
 import {Registration} from './components/auth/registration';
 import {Layout} from './components/layout';
 import {BookPage} from './pages/book';
@@ -41,13 +41,9 @@ root.render(
                 <InterceptorApi/>
                 <Routes>
                     <Route path={AUTH} element={<Auth/>}/>
-                    <Route path={REG} element={<Registration/>}>
-                        {/* <Route path={REG} element={<Navigate to={REG_1}/>}/>
-                        <Route path={REG_1} element={<RegistrationStep1 />}/>
-                        <Route path={REG_2} element={<RegistrationStep2/>}/>
-                        <Route path={REG_3} element={<RegistrationStep3/>}/> */}
-                    </Route>
-                    <Route path={RECOVERY} element={<Reset/>}/>
+                    <Route path={REG} element={<Registration/>}/>
+                    <Route path={RECOVERY} element={<Forgot/>}/>
+                    {/* <Route path={RESET} element={<Reset/>}/> */}
                     <Route path={MAIN} element={<Layout/>}>
                         <Route path={MAIN} element={<MainPage/>}>
                             <Route path={MAIN} element={<Navigate to={BOOKS}/>}/>

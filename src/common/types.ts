@@ -123,6 +123,7 @@ export type ResetDataType = {
 export type RecoveryDataType = {
     password: string
     passwordConfirmation: string
+    code: string
 }
 
 export type DataType = AuthDataType | RegistrationDataType | ResetDataType | RecoveryDataType

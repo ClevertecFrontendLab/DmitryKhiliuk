@@ -23,8 +23,8 @@ export const RegistrationResult = ({setStep}: RegistrationResultType) => {
     const navigate = useNavigate()
 
     const onClickHandler = () => {
-        dispatch(setErrorAC(''))
         if (errorStatus) {
+            dispatch(setErrorAC(''))
             setStep(1)
         } else {
             navigate(AUTH)
