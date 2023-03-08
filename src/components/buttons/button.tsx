@@ -8,7 +8,7 @@ type ButtonType = {
     name?: string
     date?: string
     type?: 'button' | 'submit' | 'reset' | undefined
-    callBack?: () => void
+    callBack: () => void
 
 }
 
@@ -76,7 +76,7 @@ export const Button = ({status, size, name, date, type, callBack}:ButtonType) =>
 
     const onClickHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        callBack!()
+        callBack()
 
     }
 

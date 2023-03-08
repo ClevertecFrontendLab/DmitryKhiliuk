@@ -80,6 +80,8 @@ export const BookPage = () => {
 
     const categoryForCrumbs = categories.find(el => el.path === category)?.name
 
+    const onClickButtonHandler = () => {}
+
     return (
         <section className={styles.bookPage}>
             <div className={styles.container}>
@@ -109,7 +111,7 @@ export const BookPage = () => {
                                 {book.authors && book.authors.reduce((acc: string, number) => acc + number, '')}{`, ${book.issueYear}`}
                             </h5>
                             <div className={styles.button}>
-                                <Button status={bookStatus} size='large'/>
+                                <Button status={bookStatus} size='large' callBack={onClickButtonHandler}/>
                             </div>
                         </div>
                         <div className={styles.annotation}>
@@ -152,7 +154,7 @@ export const BookPage = () => {
                         </div>}
                     </div>
                     <div className={`${styles.button} ${styles.buttonGrade}`}>
-                        <Button name="оценить книгу" size='large'/>
+                        <Button name="оценить книгу" size='large' callBack={onClickButtonHandler}/>
                     </div>
                 </React.Fragment>}
 

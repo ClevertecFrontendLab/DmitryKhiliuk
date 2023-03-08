@@ -3,7 +3,8 @@ import {AxiosError} from 'axios';
 
 import {authAPI} from '../api/auth-api';
 import {AuthDataType, RegistrationDataType} from '../common/types';
-import {setAppStatusAC} from "./app-reducer";
+
+import {setAppStatusAC} from './app-reducer';
 
 export const slice = createSlice({
     name: 'auth',
@@ -79,10 +80,12 @@ export const LogIn = createAsyncThunk('auth/logIn', async (data:AuthDataType, {d
 
 })
 
-export const Registration = createAsyncThunk('auth/registration', async (dataReg: RegistrationDataType, {dispatch, rejectWithValue}) => {
+export const RegistrationTC = createAsyncThunk('auth/registration', async (dataReg: RegistrationDataType, {dispatch, rejectWithValue}) => {
     try {
         const res = await authAPI.register(dataReg)
+
         console.log(res.data.user)
+
         return res.data
     } catch (err) {
         const error = err as AxiosError
@@ -90,6 +93,7 @@ export const Registration = createAsyncThunk('auth/registration', async (dataReg
         if(!error.response){
             throw err
         }
+        dispatch(setErrorAC(error.response.status))
 
         return rejectWithValue(error.response.data)
     }

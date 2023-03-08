@@ -1,0 +1,17 @@
+@import "src/mixins.scss";
+.content {
+     width: 410px;
+     margin: 48px 95px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+
+     .title {
+
+     }
+     .text {
+         margin: 32px 0;
+         text-align: center;
+         @include body-large;
+     }
+}

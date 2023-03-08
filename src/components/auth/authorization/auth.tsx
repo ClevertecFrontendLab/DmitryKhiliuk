@@ -66,6 +66,7 @@ export const Auth = () => {
         dispatch(setErrorAC(null))
     }
 
+    const onClickButtonHandler = () => {}
 
     return (
         <div className={styles.main}>
@@ -94,7 +95,7 @@ export const Auth = () => {
                                 {error === 400 && <div className={styles.recoveryText}>Неправильный логин или пароль!</div>}
                                 <NavLink to={RECOVERY}>{error === 400 ? 'Восстановить?': 'Забыли логин или пароль?'}</NavLink>
                             </div>
-                            <Button size='large' type='submit' name='Вход'/>
+                            <Button size='large' type='submit' name='Вход' callBack={onClickButtonHandler}/>
                         </form>
                         <div>
                             <span className={styles.registerText}>Нет учетной записи?</span>

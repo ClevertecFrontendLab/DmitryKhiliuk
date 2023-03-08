@@ -1,5 +1,6 @@
 import {ChangeEvent, useState} from 'react';
-import {UseFormRegister} from 'react-hook-form';
+import {Control, Controller, UseFormRegister} from 'react-hook-form';
+import MaskedInput from 'react-text-mask';
 import cn from 'classnames';
 
 import eyeClose from '../../assets/icons/modal/Eye-close.svg'
@@ -22,6 +23,8 @@ type InputType = {
     errorFlag?: string
     pattern?: {value: RegExp, message: string}
     minLength?: {value: number, message: string}
+    control?: Control<any,any>
+    successPass?:  boolean
 }
 
 export const Input = ({register,
@@ -33,7 +36,9 @@ export const Input = ({register,
                           validation,
                           errorFlag,
                           pattern,
-                          minLength}:InputType) => {
+                          minLength,
+                          control,
+                          successPass}:InputType) => {
 
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState('')
@@ -51,17 +56,35 @@ export const Input = ({register,
 
 
 
+
     return (
         <div>
             <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>
                 <div className={styles.inputBox}>
-                    <input className={styles.input}
-                           {...register(name,
-                               {required: required ? required : 'Поле не может быть пустым', minLength, pattern,})}
-                           type={open ? 'text' : type}    placeholder=' ' onChange={onChangeHandler}/>
+                    {name==='phone'?
+                        <Controller control={control} name='phone' rules={{required: 'Поле не может быть пустым', minLength, pattern}} render={({field:{onChange}}) => (
+                            <MaskedInput className={styles.input}
+                                         mask={['+','3','7','5', ' ', '(',/\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                                         type='tel'
+                                         placeholder=' '
+                                         placeholderChar="x"
+                                         onChange={onChange}
+
+                            />
+                        )}/>
+                        :
+                        <input className={styles.input}
+                            {...register(name,
+                                {
+                                    required: required ? required : 'Поле не может быть пустым',
+                                    minLength,
+                                    pattern,
+                                })}
+                            type={open ? 'text' : type} placeholder=' '
+                            onChange={onChangeHandler}/>}
                     <label className={styles.label} htmlFor={name}>{label}</label>
                 </div>
-                <img className={styles.img} src={success} alt="success" style={{opacity: 0}}/>
+                <img className={styles.img} src={success} alt="success" style={{opacity: successPass && value ? 1 : 0}}/>
                 {name === 'password' && value && <button onClick={onClickHandler} type='button'><img className={styles.img}
                                                                                                      src={open ? eyeOpen : eyeClose}
                                                                                                      alt="eye"/></button>}
