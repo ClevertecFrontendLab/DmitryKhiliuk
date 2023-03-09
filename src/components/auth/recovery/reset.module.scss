@@ -1,8 +1,13 @@
 @import "src/mixins.scss";
 .main{
     .content {
-        width: 416px;
+        min-width: 416px;
         margin: 48px 56px;
+        @media screen and (max-width: 560px){
+            min-width: 256px;
+            max-width: 416px;
+            margin: 16px 24px;
+        }
         .title {
 
         }

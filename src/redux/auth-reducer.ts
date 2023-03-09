@@ -73,6 +73,8 @@ export const LogIn = createAsyncThunk('auth/logIn', async (data:AuthDataType, {d
     try {
         const res = await authAPI.auth(data)
 
+        localStorage.setItem('jwt', res.data.jwt)
+
         dispatch(setAppStatusAC({status: 'succeeded'}))
 
         dispatch(isLoggedInAC(true))

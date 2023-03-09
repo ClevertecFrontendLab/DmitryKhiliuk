@@ -1,11 +1,15 @@
 @import "src/mixins.scss";
 .content {
-    width: 410px;
+    min-width: 410px;
     margin: 48px 95px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    @media screen and (max-width: 560px){
+        min-width: 256px;
+        max-width: 416px;
+        margin: 16px 24px;
+    }
     .title {
 
     }

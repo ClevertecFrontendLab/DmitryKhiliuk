@@ -7,18 +7,19 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 16px;
     .text {
         color: white;
         position: absolute;
         top: 17.58vh;
+        @media screen and (max-width: 560px){
+            top: 16px
+        }
     }
     .content {
         background: #FFFFFF;
-        //width: 528px;
         display: inline-block;
         border-radius: 16px;
-        .children {
 
-        }
     }
 }

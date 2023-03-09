@@ -39,7 +39,7 @@ export const Auth = () => {
     });
 
 
-    const onSubmit = async (data: AuthDataType) => {
+    /* const onSubmit = async (data: AuthDataType) => {
         try {
             const response = await dispatch(LogIn(data))
 
@@ -54,19 +54,29 @@ export const Auth = () => {
         }
 
         return data
-    }
+    } */
 
-    const onSubmitt = (data: AuthDataType) => {
+   /* const onSubmit = (data: AuthDataType) => {
         dispatch(LogIn(data))
         navigate(MAIN)
         reset()
+    } */
+
+    const onSubmit = (data: AuthDataType) => {
+        console.log(data)
+
+        dispatch(LogIn(data))
+        navigate(MAIN)
     }
+
+
 
     const goBackToRegister = () => {
         dispatch(setErrorAC(null))
     }
 
     const onClickButtonHandler = () => {}
+    const validAuth = (value:string) => {}
 
     return (
         <div className={styles.main}>
@@ -84,11 +94,13 @@ export const Auth = () => {
                                    name='identifier'
                                    label='Логин'
                                    type='text'
+                                   validation={(value) => validAuth(value)}
                                    errorMessage={errors.identifier?.message}/>
                             <Input register={register}
                                    name='password'
                                    label='Пароль'
                                    type='password'
+                                   validation={(value) => validAuth(value)}
                                    errorMessage={errors.password?.message}/>
 
                             <div className={styles.recovery}>
