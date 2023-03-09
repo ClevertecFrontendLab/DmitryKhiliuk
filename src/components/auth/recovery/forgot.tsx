@@ -1,11 +1,11 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
-import {NavLink, useSearchParams} from 'react-router-dom';
+import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import dartDown from '../../../assets/icons/modal/forgot.svg'
 import dartUp from '../../../assets/icons/modal/Icon_Chevron.svg'
-import {AUTH, REG} from '../../../common/routes';
+import {AUTH, MAIN, REG} from '../../../common/routes';
 import {selectErrorStatus, selectMailStatus} from '../../../common/selectors';
 import {ResetDataType} from '../../../common/types';
 import {ForgotPasswordTC} from '../../../redux/auth-reducer';
@@ -24,6 +24,8 @@ export const Forgot = () => {
     const dispatch = useAppDispatch()
     const error = useAppSelector(selectErrorStatus)
     const mailStatus = useAppSelector(selectMailStatus)
+    const jwt = localStorage.getItem('jwt')
+    const navigate = useNavigate()
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -58,7 +60,11 @@ export const Forgot = () => {
     }
 
 
-
+    useEffect(() => {
+        if (jwt) {
+            navigate(MAIN)
+        }
+    }, [jwt, navigate])
 
     const onClickButtonHandler = () => {
     }

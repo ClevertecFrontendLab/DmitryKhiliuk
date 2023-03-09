@@ -54,9 +54,6 @@ export const Input = ({register,
         validation!(e.currentTarget.value)
     }
 
-
-
-
     return (
         <div>
             <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>
@@ -73,7 +70,7 @@ export const Input = ({register,
                             />
                         )}/>
                         :
-                        <input className={styles.input}
+                        <input  className={styles.input}
                             {...register(name,
                                 {
                                     required: required ? required : 'Поле не может быть пустым',
@@ -87,7 +84,8 @@ export const Input = ({register,
                 <img data-test-id='checkmark' className={styles.img} src={success} alt="success" style={{opacity: successPass && value ? 1 : 0}}/>
                 {type === 'password' && value && <button onClick={onClickHandler} type='button'>{open ? <img data-test-id='eye-opened' className={styles.img} src={eyeOpen} alt="eye"/> : <img data-test-id='eye-closed' className={styles.img} src={eyeClose} alt="eye"/>}</button>}
             </div>
-            <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>
+            {/* {errorMessage==='Поле не может быть пустым'&&<div className={styles.errorMessage} data-test-id='hint'>Поле не может быть пустым</div>} */}
+             <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>
         </div>
     );
 };

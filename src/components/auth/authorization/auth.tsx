@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {NavLink, useNavigate} from 'react-router-dom';
 
@@ -19,12 +20,15 @@ export const Auth = () => {
     const navigate = useNavigate()
     const log = useAppSelector(selectIsLoggedIn)
     const error = useAppSelector(selectErrorStatus)
+    const jwt = localStorage.getItem('jwt')
 
 
-
-        if (log) {
+    useEffect(() => {
+        if (jwt) {
             navigate(MAIN)
         }
+    }, [jwt, navigate])
+
 
 
 
@@ -34,7 +38,8 @@ export const Auth = () => {
         formState: {errors},
         reset
     } = useForm<AuthDataType>({
-        mode: 'onBlur'
+        mode: 'onBlur',
+        reValidateMode: 'onBlur'
     });
 
 
@@ -81,7 +86,7 @@ export const Auth = () => {
         <div className={styles.main} >
             <Modal>
                 {error && error !== 400  ?
-                    <div className={styles.errorContent}>
+                    <div data-test-id='status-block' className={styles.errorContent}>
                         <h4 className={styles.title}>Вход не выполнен</h4>
                         <div className={styles.errorText}>Что-то пошло не так. Попробуйте ещё раз</div>
                         <Button size='large' name='Повторить' callBack={goBackToRegister}/>
@@ -103,7 +108,7 @@ export const Auth = () => {
                                    errorMessage={errors.password?.message}/>
 
                             <div className={styles.recovery}>
-                                {error === 400 && <div className={styles.recoveryText}>Неправильный логин или пароль!</div>}
+                                {error === 400 && <div className={styles.recoveryText} data-test-id='hint'>Неверный логин или пароль!</div>}
                                 <NavLink to={RECOVERY}>{error === 400 ? 'Восстановить?': 'Забыли логин или пароль?'}</NavLink>
                             </div>
                             <Button size='large' type='submit' name='Вход' callBack={onClickButtonHandler}/>

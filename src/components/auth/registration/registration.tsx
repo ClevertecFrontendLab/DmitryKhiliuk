@@ -1,10 +1,10 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
 import dart from '../../../assets/icons/modal/Icon_Chevron.svg';
-import {AUTH} from '../../../common/routes';
+import {AUTH, MAIN} from '../../../common/routes';
 import {RegistrationDataType} from '../../../common/types';
 import {
     addFromStepOne,
@@ -12,7 +12,7 @@ import {
     addFromStepTwo,
     RegistrationTC
 } from '../../../redux/auth-reducer';
-import {useAppDispatch} from '../../../redux/store';
+import {useAppDispatch, useAppSelector} from '../../../redux/store';
 import {Button} from '../../buttons';
 import {Input} from '../../input';
 import {Modal} from '../../modal';
@@ -20,6 +20,7 @@ import {Modal} from '../../modal';
 import {RegistrationResult} from './registration-result';
 
 import styles from './registration.module.scss';
+import {selectIsLoggedIn} from "../../../common/selectors";
 
 
 
@@ -129,6 +130,21 @@ export const Registration = () => {
     }
 
     const onClickButtonHandler = () => {}
+    const jwt = localStorage.getItem('jwt')
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (jwt) {
+            navigate(MAIN)
+        }
+    }, [jwt, navigate])
+
+
+   /*  const log = useAppSelector(selectIsLoggedIn)
+    const navigate = useNavigate()
+    if (log) {
+        navigate(MAIN)
+    } */
 
     return (
         <div>
