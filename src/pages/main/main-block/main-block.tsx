@@ -1,7 +1,9 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import cn from 'classnames'
 
 import search from '../../../assets/icons/search.svg';
+import {AUTH} from '../../../common/routes';
 import {selectBooks} from '../../../common/selectors';
 import {FilterButton, RoundButton} from '../../../components/buttons';
 import {DisplayView} from '../../../components/display-view';
@@ -19,11 +21,17 @@ export const MainBlock = () =>  {
 
     const dispatch = useAppDispatch()
     const books = useAppSelector(selectBooks)
+    const jwt = localStorage.getItem('jwt')
+    const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(fetchCategories())
-        dispatch(fetchBooks())
-    },[dispatch])
+        if (jwt) {
+            dispatch(fetchCategories())
+            dispatch(fetchBooks())
+        } else {
+            navigate(AUTH)
+        }
+    },[dispatch, jwt, navigate])
 
     const [gridContent, setGridContent] = useState(true)
     const [deployedInput, setDeployedInput] = useState(false)

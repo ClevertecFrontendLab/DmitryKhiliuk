@@ -76,7 +76,7 @@ export const Forgot = () => {
                                 <span className={styles.text}>вход в личный кабинет </span>
                             </NavLink>
                             <h4 className={styles.title}>Восстановление пароля</h4>
-                            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                            <form className={styles.form} onSubmit={handleSubmit(onSubmit)} data-test-id='send-email-form'>
                                 <Input register={register}
                                        name='email' label='E-mail'
                                        type='text'

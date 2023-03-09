@@ -2,25 +2,23 @@ import axios from 'axios';
 
 import {HOST} from '../common/routes';
 
-
-const jwt = localStorage.getItem('jwt')
-
-
-
 export const instance = axios.create({
+
     baseURL: HOST,
-    headers: {
-        'Authorization':  `Bearer ${jwt}`
-    }
+
 })
 
-  /* instance.interceptors.response.use( response => response,
-     error => {
+    instance.interceptors.request.use(
+       request => {
 
-         if (error.response.status === 401) {
+           request.headers.Authorization = `Bearer ${localStorage.getItem('jwt')}`
 
-         }
-     }); */
+           return request
+       },
+        error => {
+            console.log(error)
+        }
+     );
 
 export const booksAPI = {
     getBooks(){

@@ -87,7 +87,7 @@ export const Reset = ({code}: ResetPropsType) => {
             <div className={styles.main}>
                 <div className={styles.content}>
                     <h4 className={styles.title}>Восстановление пароля</h4>
-                    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} data-test-id='reset-password-form'>
                         <Input register={register}
                                name='password'
                                label='Новый пароль'

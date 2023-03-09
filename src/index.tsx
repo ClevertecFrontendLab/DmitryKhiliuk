@@ -43,7 +43,6 @@ root.render(
                     <Route path={AUTH} element={<Auth/>}/>
                     <Route path={REG} element={<Registration/>}/>
                     <Route path={RECOVERY} element={<Forgot/>}/>
-                    {/* <Route path={RESET} element={<Reset/>}/> */}
                     <Route path={MAIN} element={<Layout/>}>
                         <Route path={MAIN} element={<MainPage/>}>
                             <Route path={MAIN} element={<Navigate to={BOOKS}/>}/>

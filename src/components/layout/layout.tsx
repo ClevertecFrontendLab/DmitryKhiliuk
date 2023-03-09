@@ -16,15 +16,23 @@ export const Layout = React.memo(() => {
 
 
     const status = useAppSelector(selectStatus)
-    const auth = useAppSelector(selectIsLoggedIn)
 
-    const navigate = useNavigate()
 
     const [toggleBurgerMenu, setToggleBurgerMenu] = useState(false)
     const toggleMenuHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         setToggleBurgerMenu(!toggleBurgerMenu)
     }
+
+    const jwt = localStorage.getItem('jwt')
+
+
+       /* if (!jwt) {
+            navigate(AUTH)
+        } */
+
+
+
 
     const dropDownRef = useRef<HTMLDivElement>(null);
 

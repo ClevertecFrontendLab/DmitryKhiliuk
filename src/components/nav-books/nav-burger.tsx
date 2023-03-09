@@ -81,7 +81,7 @@ export const NavBurger = ({callBurger}: NavBoxType) => {
                 <button onClick={toggleHandler} type='button'><NavLink to={AGREEMENT} className={setActiveMenuItem}  data-test-id='burger-contract'><h5>Договор оферты</h5></NavLink>
                 <div className={styles.line}> </div></button>
                 <NavLink to={PROFILE} className={setActiveMenuAdditionalItem} ><h5>Профиль</h5></NavLink>
-                <button className={cn(styles.menuItems, styles.additionalItems)} type='button' onClick={toggleHandler}><h5>Выход</h5></button>
+                <button data-test-id='exit-button' className={cn(styles.menuItems, styles.additionalItems)} type='button' onClick={toggleHandler}><h5>Выход</h5></button>
             </div>
         </section>
     );

@@ -13,7 +13,7 @@ export const InterceptorApi = () => {
 
     const interceptorId = useRef<number | null>(null);
 
-    useEffect(() => {
+    /* useEffect(() => {
         interceptorId.current = instance.interceptors.response.use(undefined, (error) => {
             if (error.response.status) {
                 navigate(AUTH);
@@ -23,7 +23,7 @@ export const InterceptorApi = () => {
         return () => {
             instance.interceptors.response.eject(interceptorId.current as number);
         };
-    }, [navigate, dispatch]);
+    }, [navigate, dispatch]); */
 
     return null;
 };

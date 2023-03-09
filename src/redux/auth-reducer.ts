@@ -61,7 +61,7 @@ export const slice = createSlice({
 
             esState.confirmed = action.payload
         }
-    }
+    },
 })
 
 export const authReducer = slice.reducer
@@ -74,6 +74,7 @@ export const LogIn = createAsyncThunk('auth/logIn', async (data:AuthDataType, {d
         const res = await authAPI.auth(data)
 
         localStorage.setItem('jwt', res.data.jwt)
+
 
         dispatch(setAppStatusAC({status: 'succeeded'}))
 
@@ -95,11 +96,16 @@ export const LogIn = createAsyncThunk('auth/logIn', async (data:AuthDataType, {d
 })
 
 export const RegistrationTC = createAsyncThunk('auth/registration', async (dataReg: RegistrationDataType, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     try {
+
         const res = await authAPI.register(dataReg)
+
+        dispatch(setAppStatusAC({status: 'succeeded'}))
 
         return res.data
     } catch (err) {
+        dispatch(setAppStatusAC({status: 'failed'}))
         const error = err as AxiosError
 
         if(!error.response){
@@ -113,13 +119,17 @@ export const RegistrationTC = createAsyncThunk('auth/registration', async (dataR
 
 
 export const ForgotPasswordTC = createAsyncThunk('auth/forgot', async (mail: ResetDataType, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     try {
+        dispatch(setAppStatusAC({status: 'succeeded'}))
         const res = await authAPI.forgot(mail)
 
         dispatch(setMail(res.data.ok))
 
         return res.data
     } catch (err) {
+        dispatch(setAppStatusAC({status: 'failed'}))
+
         const error = err as AxiosError
 
         if(!error.response){
@@ -132,13 +142,16 @@ export const ForgotPasswordTC = createAsyncThunk('auth/forgot', async (mail: Res
 })
 
 export const ResetPasswordTC = createAsyncThunk('auth/reset', async (dataPass: RecoveryDataType, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     try {
+        dispatch(setAppStatusAC({status: 'succeeded'}))
         const res = await authAPI.reset(dataPass)
 
         dispatch(getConfirmed(res.data.user.confirmed))
 
         return res.data
     } catch (err) {
+        dispatch(setAppStatusAC({status: 'failed'}))
         const error = err as AxiosError
 
         if(!error.response){

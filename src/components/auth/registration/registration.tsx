@@ -144,7 +144,7 @@ export const Registration = () => {
                                 {step===3 && '3 шаг из 3'}
                             </div>
                             {step===1&&
-                                <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                                <form className={styles.form} onSubmit={handleSubmit(onSubmit)} data-test-id='register-form'>
                                     <Input register={register}
                                            name='username'
                                            label='Придумайте логин для входа'

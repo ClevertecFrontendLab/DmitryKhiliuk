@@ -84,12 +84,10 @@ export const Input = ({register,
                             onChange={onChangeHandler}/>}
                     <label className={styles.label} htmlFor={name}>{label}</label>
                 </div>
-                <img className={styles.img} src={success} alt="success" style={{opacity: successPass && value ? 1 : 0}}/>
-                {type === 'password' && value && <button onClick={onClickHandler} type='button'><img className={styles.img}
-                                                                                                     src={open ? eyeOpen : eyeClose}
-                                                                                                     alt="eye"/></button>}
+                <img data-test-id='checkmark' className={styles.img} src={success} alt="success" style={{opacity: successPass && value ? 1 : 0}}/>
+                {type === 'password' && value && <button onClick={onClickHandler} type='button'>{open ? <img data-test-id='eye-opened' className={styles.img} src={eyeOpen} alt="eye"/> : <img data-test-id='eye-closed' className={styles.img} src={eyeClose} alt="eye"/>}</button>}
             </div>
-            <div className={styles.errorMessage}>{errorMessage}</div>
+            <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>
         </div>
     );
 };

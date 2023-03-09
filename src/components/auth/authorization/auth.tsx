@@ -1,4 +1,3 @@
-import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {NavLink, useNavigate} from 'react-router-dom';
 
@@ -21,13 +20,13 @@ export const Auth = () => {
     const log = useAppSelector(selectIsLoggedIn)
     const error = useAppSelector(selectErrorStatus)
 
-    const jwt = localStorage.getItem('jwt')
 
 
-    useEffect(() => {
+        if (log) {
+            navigate(MAIN)
+        }
 
 
-    }, [navigate, log])
 
     const {
         register,
@@ -63,11 +62,11 @@ export const Auth = () => {
     } */
 
     const onSubmit = (data: AuthDataType) => {
-        console.log(data)
-
         dispatch(LogIn(data))
-        navigate(MAIN)
+
     }
+
+
 
 
 
@@ -79,7 +78,7 @@ export const Auth = () => {
     const validAuth = (value:string) => {}
 
     return (
-        <div className={styles.main}>
+        <div className={styles.main} >
             <Modal>
                 {error && error !== 400  ?
                     <div className={styles.errorContent}>
@@ -89,7 +88,7 @@ export const Auth = () => {
                     </div>:
                     <div className={styles.content}>
                         <h4 className={styles.title}>Вход в личный кабинет</h4>
-                        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+                        <form onSubmit={handleSubmit(onSubmit)} className={styles.form} data-test-id='auth-form'>
                             <Input register={register}
                                    name='identifier'
                                    label='Логин'
