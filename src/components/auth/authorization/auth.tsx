@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {NavLink, useNavigate} from 'react-router-dom';
 
@@ -65,10 +65,12 @@ export const Auth = () => {
         navigate(MAIN)
         reset()
     } */
+    const [required, setRequired] = useState<boolean|string>('Поле не может быть пустым')
 
     const onSubmit = (data: AuthDataType) => {
         dispatch(LogIn(data))
-
+        console.log(data)
+        reset()
     }
 
 
@@ -80,7 +82,8 @@ export const Auth = () => {
     }
 
     const onClickButtonHandler = () => {}
-    const validAuth = (value:string) => {}
+    const validLog = (value:string) => {}
+    const validPass = (value:string) => {}
 
     return (
         <div className={styles.main} >
@@ -98,13 +101,13 @@ export const Auth = () => {
                                    name='identifier'
                                    label='Логин'
                                    type='text'
-                                   validation={(value) => validAuth(value)}
+                                   validation={(value) => validLog(value)}
                                    errorMessage={errors.identifier?.message}/>
                             <Input register={register}
                                    name='password'
                                    label='Пароль'
                                    type='password'
-                                   validation={(value) => validAuth(value)}
+                                   validation={(value) => validPass(value)}
                                    errorMessage={errors.password?.message}/>
 
                             <div className={styles.recovery}>

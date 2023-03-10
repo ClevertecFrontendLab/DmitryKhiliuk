@@ -12,7 +12,7 @@ import {
     addFromStepTwo,
     RegistrationTC
 } from '../../../redux/auth-reducer';
-import {useAppDispatch, useAppSelector} from '../../../redux/store';
+import {useAppDispatch} from '../../../redux/store';
 import {Button} from '../../buttons';
 import {Input} from '../../input';
 import {Modal} from '../../modal';
@@ -20,8 +20,6 @@ import {Modal} from '../../modal';
 import {RegistrationResult} from './registration-result';
 
 import styles from './registration.module.scss';
-import {selectIsLoggedIn} from "../../../common/selectors";
-
 
 
 export const Registration = () => {
@@ -38,9 +36,10 @@ export const Registration = () => {
         handleSubmit,
         control,
         formState: {errors},
+        clearErrors,
         reset
     } = useForm<RegistrationDataType>({
-        mode: 'onBlur',
+        mode: 'all',
         reValidateMode: 'onBlur'
     });
 
@@ -74,6 +73,7 @@ export const Registration = () => {
     const regExpForPhone = {value: regPhone, message: 'error phone'}
     const regMail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
     const regExpForMail = {value: regMail, message: 'Введите корректный e-mail'}
+    let disable = false
 
     /* --------------------------------------------validation for username--------------------------------------- */
 
@@ -81,13 +81,23 @@ export const Registration = () => {
     const [latin, setLatin] = useState(true)
     const [numb, setNumb] = useState(true)
 
+    let user = false
+
+    if (userName&&latin&&numb) {
+        user = true
+    }
 
     const getValidUserName = (value:string) => {
+        clearErrors()
         setUserName(/^[A-Za-z0-9]+$/.test(value))
         setLatin( /[A-Za-z]/.test(value))
         setNumb(/[0-9]/.test(value))
     }
 
+
+    if (!user || errors.username || errors.password) {
+        disable = true
+    }
     /* --------------------------------------------validation for password--------------------------------------- */
 
    /*  const [pass, setPass] = useState(false) */
@@ -100,18 +110,25 @@ export const Registration = () => {
     if (length&&upperCase&&numbPass) {
         pass = true
     }
+    if (!pass) {
+        disable = true
+    }
 
 
     const getValidPassword = (value:string) => {
         // setPass(/^[0-9A-ZА-Я]{0,8}/.test(value))
+        clearErrors()
         setLength( /.{8,}/.test(value))
         setUpperCase( /[A-ZА-Я]/.test(value))
         setNumbPass(/[0-9]/.test(value))
     }
 
 
-
     const getValidName = (value:string) => {}
+
+    if (errors.firstName ) {
+        disable = true
+    }
 
     /* --------------------------------------------validation for phone--------------------------------------- */
 
@@ -140,6 +157,8 @@ export const Registration = () => {
     }, [jwt, navigate])
 
 
+
+
    /*  const log = useAppSelector(selectIsLoggedIn)
     const navigate = useNavigate()
     if (log) {
@@ -166,29 +185,37 @@ export const Registration = () => {
                                            label='Придумайте логин для входа'
                                            type='text'
                                            validation={(value) => getValidUserName(value)}
-                                           errorFlag={errors.username?.message}
+                                           errorMessage={errors.username?.message}
                                            pattern={regExpForUserName}/>
-                                    <div className={cn(!latin&&!numb || errors.username ? styles.hintUserNameError : styles.hintUserName)}>
+                                    {errors.username?.message !== 'Поле не может быть пустым' &&
+                                    <div data-test-id='hint' className={cn(errors.username ? styles.hintUserNameError : styles.hintUserName)}>
+                                        <span>Используйте для логина </span>
+                                        <span className={cn(latin ? styles.hintUserName : styles.hintUserNameError)}>латинский алфавит </span>
+                                        <span>и</span>
+                                        <span className={cn(numb  ? styles.hintUserName : styles.hintUserNameError)}> цифры</span>
+                                    </div>}
+                                   {/* <div data-test-id='hint' className={cn(!latin || !numb || errors.username ? styles.hintUserNameError : styles.hintUserName)}>
                                         Используйте для логина
-                                        <span className={cn(!latin&&userName&&styles.latinUserNameHint)}> латинский алфавит</span> и
-                                        <span className={cn(!numb&&userName&&styles.numberUserNameHint)}> цифры</span>
-                                    </div>
+                                        <span className={cn(!latin&&styles.latinUserNameHint)}> латинский алфавит</span> и
+                                        <span className={cn(!numb&&styles.numberUserNameHint)}> цифры</span>
+                                    </div> */}
                                     <Input register={register}
                                            name='password'
                                            label='Пароль'
                                            type='password'
                                            validation={(value) => getValidPassword(value)}
-                                           errorFlag={errors.password?.message}
+                                           errorMessage={errors.password?.message}
                                            pattern={regExpForPassword}
                                            successPass={pass}
                                            minLength={minLength}/>
-                                    <div className={cn(!length&&!upperCase&&!numbPass || errors.password ? styles.hintPasswordError : styles.hintPassword)}>
+                                    {errors.password?.message !== 'Поле не может быть пустым' &&
+                                        <div data-test-id='hint' className={cn(!length&&!upperCase&&!numbPass || errors.password ? styles.hintPasswordError : styles.hintPassword)}>
                                         Пароль <span className={cn(!length&&styles.lengthPasswordHint)}>не менее 8 символов,
                                     </span> с <span className={cn(!upperCase&&styles.upperCasePasswordHint)}>заглавной буквой</span> и
                                         <span className={cn(!numbPass&&styles.numberPasswordHint)}> цифрой</span>
-                                    </div>
+                                    </div>}
                                     <div className={styles.space}/>
-                                    <Button size='large' type='submit' name='Следующий шаг' callBack={onClickButtonHandler}/>
+                                    <Button size='large' type='submit' name='Следующий шаг' callBack={onClickButtonHandler} disableButton={disable}/>
                                 </form>
                             }
                             {step===2&&
@@ -205,7 +232,7 @@ export const Registration = () => {
                                            validation={(value) => getValidName(value)}
                                            errorMessage={errors.lastName?.message}/>
                                     <div className={styles.space}/>
-                                    <Button size='large' type='submit' name='Последний шаг' callBack={onClickButtonHandler}/>
+                                    <Button size='large' type='submit' name='Последний шаг' callBack={onClickButtonHandler} disableButton={disable}/>
                                 </form>
                             }
                             {step===3&&

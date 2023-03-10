@@ -51,6 +51,7 @@
    border-bottom: solid 1px #F42C4F;
 }
 .errorMessage {
+    margin-left: 12px;
     color: #F42C4F;
     @include body-small;
 }

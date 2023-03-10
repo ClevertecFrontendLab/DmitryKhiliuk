@@ -42,6 +42,7 @@ export const Input = ({register,
 
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState('')
+    const [blur, setBlur] = useState(false)
 
     const errorStatus = useAppSelector(selectErrorStatus)
 
@@ -52,6 +53,16 @@ export const Input = ({register,
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
        setValue(e.currentTarget.value)
         validation!(e.currentTarget.value)
+    }
+
+    let mes = {value: true, message: 'Поле не может быть пустым'}
+
+    if (value) {
+        mes = {value: false, message: 'Поле не может быть пустым'}
+    }
+
+    const onBlurHandler = () => {
+
     }
 
     return (
@@ -74,7 +85,7 @@ export const Input = ({register,
                         <input  className={styles.input}
                             {...register(name,
                                 {
-                                    required: required ? required : 'Поле не может быть пустым',
+                                    required: {value: true, message: 'Поле не может быть пустым'},
                                     minLength,
                                     pattern,
                                 })}
@@ -82,11 +93,11 @@ export const Input = ({register,
                             onChange={onChangeHandler}/>}
                     <label className={styles.label} htmlFor={name}>{label}</label>
                 </div>
-                <img data-test-id='checkmark' className={styles.img} src={success} alt="success" style={{opacity: successPass && value ? 1 : 0}}/>
+                {value&&successPass&&<img data-test-id='checkmark' className={styles.img} src={success} alt="success"/>}
                 {type === 'password' && value && <button onClick={onClickHandler} type='button'>{open ? <img data-test-id='eye-opened' className={styles.img} src={eyeOpen} alt="eye"/> : <img data-test-id='eye-closed' className={styles.img} src={eyeClose} alt="eye"/>}</button>}
             </div>
             {/* {errorMessage==='Поле не может быть пустым'&&<div className={styles.errorMessage} data-test-id='hint'>Поле не может быть пустым</div>} */}
-             <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>
+            {!value&&<div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>}
         </div>
     );
 };
