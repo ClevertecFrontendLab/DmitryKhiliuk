@@ -55,22 +55,13 @@ export const Input = ({register,
         validation!(e.currentTarget.value)
     }
 
-    let mes = {value: true, message: 'Поле не может быть пустым'}
-
-    if (value) {
-        mes = {value: false, message: 'Поле не может быть пустым'}
-    }
-
-    const onBlurHandler = () => {
-
-    }
-
+    console.log(errorMessage)
     return (
         <div>
             <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>
                 <div className={styles.inputBox}>
                     {name==='phone'?
-                        <Controller  control={control} name='phone' rules={{required: 'Поле не может быть пустым', minLength, pattern}} render={({field:{onChange}}) => (
+                        <Controller  control={control} name='phone' rules={{required: {value: true, message: 'Поле не может быть пустым'}, minLength, pattern}} render={({field:{onChange, onBlur}}) => (
                             <MaskedInput data-test-id='register-form' className={styles.input}
                                          mask={['+','3','7','5', ' ', '(',/\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                                          type='tel'
@@ -78,6 +69,7 @@ export const Input = ({register,
                                          placeholder=' '
                                          placeholderChar="x"
                                          onChange={onChange}
+                                         onBlur={onBlur}
 
                             />
                         )}/>
@@ -97,7 +89,8 @@ export const Input = ({register,
                 {type === 'password' && value && <button onClick={onClickHandler} type='button'>{open ? <img data-test-id='eye-opened' className={styles.img} src={eyeOpen} alt="eye"/> : <img data-test-id='eye-closed' className={styles.img} src={eyeClose} alt="eye"/>}</button>}
             </div>
             {/* {errorMessage==='Поле не может быть пустым'&&<div className={styles.errorMessage} data-test-id='hint'>Поле не может быть пустым</div>} */}
-            {!value&&<div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>}
+            {name === 'email' ? <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>:
+            !value && <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>}
         </div>
     );
 };

@@ -5,7 +5,7 @@ describe('authorization and registartion', () => {
         cy.viewport(1024, 768);
     });
 
-   /* describe('authorization', () => {
+    describe('authorization', () => {
         beforeEach(() => {
             cy.intercept('/api/categories').as('categories');
             cy.intercept('/api/books').as('books');
@@ -119,12 +119,12 @@ describe('authorization and registartion', () => {
             cy.get('[data-test-id=auth-form] input[name=password]').type('Qwerty123');
             cy.get('[data-test-id=hint]:contains("Поле не может быть пустым")').should('not.exist');
         });
-    });*/
+    });
     describe('registration', () => {
         beforeEach(() => {
             cy.visit('http://localhost:3000');
         });
-        /*it('enter to registartion page', () => {
+        it('enter to registartion page', () => {
             cy.url().should('contain', '/auth');
             cy.contains('регистрация', { matchCase: false }).click();
             cy.url().should('contain', '/registration');
@@ -219,7 +219,7 @@ describe('authorization and registartion', () => {
             cy.get('[data-test-id=auth]').screenshot('registration error');
             cy.contains('повторить', { matchCase: false }).click();
             cy.url().should('contain', '/registration');
-        });*/
+        });
         it('validation first step', () => {
             //login
             cy.url().should('contain', '/auth');
@@ -412,7 +412,7 @@ describe('authorization and registartion', () => {
             cy.contains('зарегистрироваться', { matchCase: false }).should('be.enabled');
         });
     });
-   /* describe('password recovery', () => {
+    describe('password recovery', () => {
         beforeEach(() => {
             cy.visit('http://localhost:3000');
         });
@@ -597,5 +597,5 @@ describe('authorization and registartion', () => {
             cy.contains('сохранить изменения', { matchCase: false }).should('be.enabled');
             cy.get('[data-test-id=checkmark]').should('have.length', 1);
         });
-    });*/
+    });
 });

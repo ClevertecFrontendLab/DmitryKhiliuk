@@ -63,6 +63,7 @@
             }
             .hintPhone {
                 @include info-large;
+                color: rgb(167, 167, 167);
                 margin-left: 12px;
             }
             .hintPhoneError {

@@ -138,12 +138,21 @@ export const Registration = () => {
         setPhone(regPhone.test(value))
     }
 
+    if (errors.phone ) {
+        disable = true
+    }
+
     /* --------------------------------------------validation for e-mail--------------------------------------- */
 
     const [mail, setMail] = useState(true)
 
     const getValidMail = (value:string) => {
         setMail(regMail.test(value))
+        clearErrors()
+    }
+
+    if (errors.email ) {
+        disable = true
     }
 
     const onClickButtonHandler = () => {}
@@ -242,21 +251,22 @@ export const Registration = () => {
                                            label='Телефон'
                                            control={control}
                                            type='text'
-                                           errorFlag={errors.phone?.message}
+                                           errorMessage={errors.phone?.message}
                                            validation={(value) => getValidPhone(value)}
                                            pattern={regExpForPhone}/>
-                                    <div className={cn(styles.hintPhone, !phone || errors.phone  && styles.hintPhoneError)}>В формате +375 (xx) xxx-xx-xx</div>
+                                    {errors.phone?.message !== 'Поле не может быть пустым' &&
+                                        <div data-test-id='hint' className={cn(styles.hintPhone, !phone || errors.phone  && styles.hintPhoneError)}>В формате +375 (xx) xxx-xx-xx</div>}
                                     <Input register={register}
                                            name='email'
                                            label='E-mail'
                                            type='text'
                                            errorMessage={errors.email?.message}
                                            pattern={regExpForMail}
-                                           validation={(value) => getValidMail(value)}
-                                           required='Введите корректный e-mail'/>
-
+                                           validation={(value) => getValidMail(value)}/>
+                                     {/* {errors.email?.message !== 'Поле не может быть пустым' &&
+                                        <div data-test-id='hint' className={cn(styles.hintPhone, !mail || errors.email  && styles.hintPhoneError)}>Введите корректный e-mail</div>} */}
                                     <div className={styles.space}/>
-                                    <Button size='large' type='submit' name='зарегистрироваться' callBack={onClickButtonHandler}/>
+                                    <Button size='large' type='submit' name='зарегистрироваться' callBack={onClickButtonHandler} disableButton={disable}/>
                                 </form>
                             }
                             <div>
