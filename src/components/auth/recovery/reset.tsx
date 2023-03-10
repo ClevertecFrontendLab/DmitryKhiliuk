@@ -28,11 +28,15 @@ export const Reset = ({code}: ResetPropsType) => {
         reset
     } = useForm<RecoveryDataType>({
         mode: 'onBlur',
+        defaultValues: {
+            code,
+        }
     });
 
     const onSubmit = (dataPass: RecoveryDataType) => {
         dispatch(ResetPasswordTC(dataPass))
-        reset()
+        console.log(dataPass)
+        // reset()
     }
 
     /* --------------------------------------------validation for password--------------------------------------- */
@@ -81,6 +85,8 @@ export const Reset = ({code}: ResetPropsType) => {
 
     const onClickButtonHandler = () => {}
 
+
+
     return (
         <div>
             {confirmed ? <ResetResult/>:
@@ -113,7 +119,7 @@ export const Reset = ({code}: ResetPropsType) => {
                                pattern={regExpForPassword}
                                minLength={minLength}/>
                         <div className={cn(styles.passError, !match && styles.visible)}>Пароли не совпадают</div>
-                        <input type="hidden" defaultValue={code} name='code' />
+                        <input type="hidden" defaultValue={code}  name='code' />
                         <div className={styles.space}/>
                         <Button size='large' type='submit' name='Сохранить изменения'
                                 callBack={onClickButtonHandler} disableButton={disable}/>

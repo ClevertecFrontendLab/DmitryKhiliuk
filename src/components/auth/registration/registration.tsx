@@ -192,7 +192,7 @@ export const Registration = () => {
                                 </form>
                             }
                             {step===2&&
-                                <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                                <form className={styles.form} onSubmit={handleSubmit(onSubmit)} data-test-id='register-form'>
                                     <Input register={register}
                                            name='firstName'
                                            label='Имя'
@@ -209,7 +209,7 @@ export const Registration = () => {
                                 </form>
                             }
                             {step===3&&
-                                <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                                <form className={styles.form} onSubmit={handleSubmit(onSubmit)} data-test-id='register-form'>
                                     <Input register={register}
                                            name='phone'
                                            label='Телефон'
@@ -220,7 +220,8 @@ export const Registration = () => {
                                            pattern={regExpForPhone}/>
                                     <div className={cn(styles.hintPhone, !phone || errors.phone  && styles.hintPhoneError)}>В формате +375 (xx) xxx-xx-xx</div>
                                     <Input register={register}
-                                           name='email' label='E-mail'
+                                           name='email'
+                                           label='E-mail'
                                            type='text'
                                            errorMessage={errors.email?.message}
                                            pattern={regExpForMail}
@@ -228,7 +229,7 @@ export const Registration = () => {
                                            required='Введите корректный e-mail'/>
 
                                     <div className={styles.space}/>
-                                    <Button size='large' type='submit' name='Регистрация' callBack={onClickButtonHandler}/>
+                                    <Button size='large' type='submit' name='зарегистрироваться' callBack={onClickButtonHandler}/>
                                 </form>
                             }
                             <div>

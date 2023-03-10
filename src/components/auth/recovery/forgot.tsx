@@ -1,12 +1,11 @@
 import {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
-import cn from 'classnames';
 
 import dartDown from '../../../assets/icons/modal/forgot.svg'
 import dartUp from '../../../assets/icons/modal/Icon_Chevron.svg'
 import {AUTH, MAIN, REG} from '../../../common/routes';
-import {selectErrorStatus, selectMailStatus} from '../../../common/selectors';
+import {selectErrorStatus, selectSuccessStatus} from '../../../common/selectors';
 import {ResetDataType} from '../../../common/types';
 import {ForgotPasswordTC} from '../../../redux/auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
@@ -23,7 +22,7 @@ import styles from './forgot.module.scss'
 export const Forgot = () => {
     const dispatch = useAppDispatch()
     const error = useAppSelector(selectErrorStatus)
-    const mailStatus = useAppSelector(selectMailStatus)
+    const mailStatus = useAppSelector(selectSuccessStatus)
     const jwt = localStorage.getItem('jwt')
     const navigate = useNavigate()
 
@@ -39,7 +38,7 @@ export const Forgot = () => {
     } = useForm<ResetDataType>({
         mode: 'onBlur',
     });
-
+    // const [stat, setStat] = useState(false)
 
     const onSubmit = (mail: ResetDataType) => {
         dispatch(ForgotPasswordTC(mail))
@@ -60,7 +59,7 @@ export const Forgot = () => {
     }
 
 
-    useEffect(() => {
+     useEffect(() => {
         if (jwt) {
             navigate(MAIN)
         }
@@ -90,6 +89,7 @@ export const Forgot = () => {
                                        pattern={regExpForMail}
                                        validation={(value) => getValidMail(value)}
                                        required='Введите корректный e-mail'/>
+                                {error && <div data-test-id='hint'  className={styles.error}>error</div>}
                                 <div className={styles.description}>На это email  будет отправлено письмо с инструкциями по восстановлению пароля</div>
                                 <Button size='large' type='submit' name='Восстановить'
                                         callBack={onClickButtonHandler}/>

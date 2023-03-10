@@ -59,10 +59,11 @@ export const Input = ({register,
             <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>
                 <div className={styles.inputBox}>
                     {name==='phone'?
-                        <Controller control={control} name='phone' rules={{required: 'Поле не может быть пустым', minLength, pattern}} render={({field:{onChange}}) => (
-                            <MaskedInput className={styles.input}
+                        <Controller  control={control} name='phone' rules={{required: 'Поле не может быть пустым', minLength, pattern}} render={({field:{onChange}}) => (
+                            <MaskedInput data-test-id='register-form' className={styles.input}
                                          mask={['+','3','7','5', ' ', '(',/\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                                          type='tel'
+                                         name='phone'
                                          placeholder=' '
                                          placeholderChar="x"
                                          onChange={onChange}

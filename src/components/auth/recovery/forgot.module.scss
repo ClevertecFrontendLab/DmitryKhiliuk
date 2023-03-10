@@ -23,6 +23,10 @@
             margin-top: 55px;
         }
         .form {
+            .error {
+                @include info-large;
+                color: #F42C4F;
+            }
             .description {
                 @include info-large;
                 color: #727272;

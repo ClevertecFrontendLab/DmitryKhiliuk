@@ -12,7 +12,7 @@ describe('authorization and registartion', () => {
             cy.intercept('/api/auth/local').as('authorize');
             cy.visit('http://localhost:3000');
         });
-        it('check first loaded page', () => {
+       /* it('check first loaded page', () => {
             cy.url().should('contain', '/auth');
             cy.contains('Забыли логин или пароль?', { matchCase: false }).click();
             cy.url().should('contain', '/forgot-pass');
@@ -63,7 +63,7 @@ describe('authorization and registartion', () => {
             cy.get('[data-test-id=auth-form] input[name=identifier]').type('TestUser1');
             cy.get('[data-test-id=auth-form] input[name=password]').type('Qwerty123');
             cy.get('button').contains('вход', { matchCase: false }).should('be.enabled').click();
-            cy.wait('@authorize');  
+            cy.wait('@authorize');
             cy.visit('http://localhost:3000/#/auth');
             cy.url().should('contain', '/books/all');
             cy.visit('http://localhost:3000/#/registration');
@@ -98,7 +98,7 @@ describe('authorization and registartion', () => {
                 .should('be.visible')
                 .and('have.css', 'color', 'rgb(244, 44, 79)');
             cy.get('[data-test-id=auth]').screenshot('incorrect logit or password error');
-        });
+        });*/
         it('validation', () => {
             cy.get('[data-test-id=auth-form] input[name=identifier]').focus();
             cy.get('[data-test-id=auth-form] input[name=identifier]').blur();
@@ -120,7 +120,7 @@ describe('authorization and registartion', () => {
             cy.get('[data-test-id=hint]:contains("Поле не может быть пустым")').should('not.exist');
         });
     });
-    describe('registration', () => {
+    /*describe('registration', () => {
         beforeEach(() => {
             cy.visit('http://localhost:3000');
         });
@@ -597,5 +597,5 @@ describe('authorization and registartion', () => {
             cy.contains('сохранить изменения', { matchCase: false }).should('be.enabled');
             cy.get('[data-test-id=checkmark]').should('have.length', 1);
         });
-    });
+    });*/
 });

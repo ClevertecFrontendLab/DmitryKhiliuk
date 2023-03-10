@@ -11,7 +11,7 @@ export const slice = createSlice({
     initialState: {
         isLoggedIn: false,
         error: null,
-        ok: false,
+        status: false,
         confirmed: false,
         registrationDate: {
             username: '',
@@ -51,10 +51,10 @@ export const slice = createSlice({
             esState.registrationDate.phone = action.payload.phone
             esState.registrationDate.email = action.payload.email
         },
-        setMail(state, action) {
+        setStatus(state, action) {
             const esState = state
 
-            esState.ok = action.payload
+            esState.status = action.payload
         },
         getConfirmed(state, action) {
             const esState = state
@@ -66,7 +66,7 @@ export const slice = createSlice({
 
 export const authReducer = slice.reducer
 export const {isLoggedInAC, setErrorAC} = slice.actions
-export const {addFromStepOne, addFromStepTwo, addFromStepThree, setMail, getConfirmed} = slice.actions
+export const {addFromStepOne, addFromStepTwo, addFromStepThree, setStatus, getConfirmed} = slice.actions
 
 export const LogIn = createAsyncThunk('auth/logIn', async (data:AuthDataType, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
@@ -124,7 +124,7 @@ export const ForgotPasswordTC = createAsyncThunk('auth/forgot', async (mail: Res
         dispatch(setAppStatusAC({status: 'succeeded'}))
         const res = await authAPI.forgot(mail)
 
-        dispatch(setMail(res.data.ok))
+        dispatch(setStatus(res.status))
 
         return res.data
     } catch (err) {

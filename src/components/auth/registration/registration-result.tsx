@@ -33,7 +33,7 @@ export const RegistrationResult = ({setStep}: RegistrationResultType) => {
 
     return (
 
-        <div className={styles.content}>
+        <div className={styles.content} data-test-id='status-block'>
             <h4 className={styles.title}>{errorStatus ? 'Данные не сохранились' : 'Регистрация успешна'}</h4>
             <div className={styles.text}>{errorStatus ? (errorStatus === 400 ?
                     'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.' :
