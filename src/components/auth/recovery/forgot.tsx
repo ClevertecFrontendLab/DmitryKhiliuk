@@ -36,7 +36,8 @@ export const Forgot = () => {
         formState: {errors},
         reset
     } = useForm<ResetDataType>({
-        mode: 'onBlur',
+        mode: 'all',
+        reValidateMode: 'onBlur'
     });
     // const [stat, setStat] = useState(false)
 
@@ -61,7 +62,7 @@ export const Forgot = () => {
 
      useEffect(() => {
         if (jwt) {
-            navigate(MAIN)
+           navigate(MAIN)
         }
     }, [jwt, navigate])
 
@@ -72,7 +73,7 @@ export const Forgot = () => {
         <div>
             <Modal>
 
-                {mailStatus ? <ForgotResult/> : code ?
+                {mailStatus ? <ForgotResult/> : (code ?
                     <Reset code={code}/> :
                     <div className={styles.main}>
                         <div className={styles.content}>
@@ -105,7 +106,7 @@ export const Forgot = () => {
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div>)
                 }
             </Modal>
         </div>

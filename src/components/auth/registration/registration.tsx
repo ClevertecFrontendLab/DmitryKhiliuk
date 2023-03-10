@@ -167,13 +167,6 @@ export const Registration = () => {
 
 
 
-
-   /*  const log = useAppSelector(selectIsLoggedIn)
-    const navigate = useNavigate()
-    if (log) {
-        navigate(MAIN)
-    } */
-
     return (
         <div>
             <Modal>
@@ -203,11 +196,6 @@ export const Registration = () => {
                                         <span>и</span>
                                         <span className={cn(numb  ? styles.hintUserName : styles.hintUserNameError)}> цифры</span>
                                     </div>}
-                                   {/* <div data-test-id='hint' className={cn(!latin || !numb || errors.username ? styles.hintUserNameError : styles.hintUserName)}>
-                                        Используйте для логина
-                                        <span className={cn(!latin&&styles.latinUserNameHint)}> латинский алфавит</span> и
-                                        <span className={cn(!numb&&styles.numberUserNameHint)}> цифры</span>
-                                    </div> */}
                                     <Input register={register}
                                            name='password'
                                            label='Пароль'

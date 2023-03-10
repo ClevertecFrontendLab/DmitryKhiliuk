@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {NavLink, useNavigate} from 'react-router-dom';
 
 import dart from '../../../assets/icons/modal/Icon_Chevron.svg'
 import {MAIN, RECOVERY, REG} from '../../../common/routes';
-import {selectErrorStatus, selectIsLoggedIn} from '../../../common/selectors';
+import {selectErrorStatus} from '../../../common/selectors';
 import {AuthDataType} from '../../../common/types';
 import {LogIn, setErrorAC} from '../../../redux/auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
@@ -18,7 +18,6 @@ export const Auth = () => {
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const log = useAppSelector(selectIsLoggedIn)
     const error = useAppSelector(selectErrorStatus)
     const jwt = localStorage.getItem('jwt')
 
@@ -43,38 +42,10 @@ export const Auth = () => {
     });
 
 
-    /* const onSubmit = async (data: AuthDataType) => {
-        try {
-            const response = await dispatch(LogIn(data))
-
-
-            localStorage.setItem('jwt', response.payload.jwt)
-            if (response.payload.jwt) {
-                navigate(MAIN)
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-
-        return data
-    } */
-
-   /* const onSubmit = (data: AuthDataType) => {
-        dispatch(LogIn(data))
-        navigate(MAIN)
-        reset()
-    } */
-    const [required, setRequired] = useState<boolean|string>('Поле не может быть пустым')
-
     const onSubmit = (data: AuthDataType) => {
         dispatch(LogIn(data))
-        console.log(data)
         reset()
     }
-
-
-
 
 
     const goBackToRegister = () => {

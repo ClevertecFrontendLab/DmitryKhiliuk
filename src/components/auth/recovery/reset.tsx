@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import cn from 'classnames';
 
-import {selectConfirmedStatus} from '../../../common/selectors';
+import {selectConfirmedStatus, selectErrorStatus} from '../../../common/selectors';
 import {RecoveryDataType} from '../../../common/types';
 import {ResetPasswordTC} from '../../../redux/auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
@@ -20,11 +20,13 @@ type ResetPropsType = {
 export const Reset = ({code}: ResetPropsType) => {
     const dispatch = useAppDispatch()
     const confirmed = useAppSelector(selectConfirmedStatus)
+    const error = useAppSelector(selectErrorStatus)
 
     const {
         register,
         handleSubmit,
         formState: {errors},
+        clearErrors,
         reset
     } = useForm<RecoveryDataType>({
         mode: 'onBlur',
@@ -58,6 +60,7 @@ export const Reset = ({code}: ResetPropsType) => {
     const getValidPassword = (value:string) => {
         // console.log(value)
         // setPass(/^[0-9A-ZА-Я]{0,8}/.test(value))
+        clearErrors()
         setLength( /.{8,}/.test(value))
         setUpperCas( /[A-ZА-Я]/.test(value))
         setNumbPass(/[0-9]/.test(value))
@@ -99,17 +102,16 @@ export const Reset = ({code}: ResetPropsType) => {
                                label='Новый пароль'
                                type='password'
                                validation={(value) => getValidPassword(value)}
-                               errorFlag={errors.password?.message}
+                               errorMessage={errors.password?.message}
                                pattern={regExpForPassword}
                                successPass={pass}
                                minLength={minLength}/>
-                        <div
-                            className={cn(!length && !upperCase && !numbPass || errors.password ? styles.hintPasswordError : styles.hintPassword)}>
-                            Пароль <span className={cn(!length && styles.lengthPasswordHint)}>не менее 8 символов,
-                                    </span> с <span
-                            className={cn(!upperCase && styles.upperCasePasswordHint)}>заглавной буквой</span> и
-                            <span className={cn(!numbPass && styles.numberPasswordHint)}> цифрой</span>
-                        </div>
+                        {errors.password?.message !== 'Поле не может быть пустым' &&
+                            <div data-test-id='hint' className={cn(!length&&!upperCase&&!numbPass || errors.password ? styles.hintPasswordError : styles.hintPassword)}>
+                                Пароль <span className={cn(!length&&styles.lengthPasswordHint)}>не менее 8 символов,
+                                    </span> с <span className={cn(!upperCase&&styles.upperCasePasswordHint)}>заглавной буквой</span> и
+                                <span className={cn(!numbPass&&styles.numberPasswordHint)}> цифрой</span>
+                            </div>}
                         <Input register={register}
                                name='passwordConfirmation'
                                label='Повторите пароль'
