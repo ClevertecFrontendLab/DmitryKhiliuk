@@ -2,13 +2,15 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
+import {appReducer} from './app-reducer';
+import {authReducer} from './auth-reducer';
+import {bookReducer} from './book-reducer';
 import {booksReducer} from './books-reducer';
-import {navReducer} from "./nav-reducer";
-import {appReducer} from "./app-reducer";
-import {bookReducer} from "./book-reducer";
+import {navReducer} from './nav-reducer';
 
 export const rootReducer = combineReducers({
     app: appReducer,
+    auth: authReducer,
     books: booksReducer,
     book: bookReducer,
     navigation: navReducer

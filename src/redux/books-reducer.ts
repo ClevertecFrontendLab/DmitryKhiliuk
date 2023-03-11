@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
 
-import {booksAPI} from '../api';
+import {booksAPI} from '../api/books-api';
 import {BooksType} from '../common/types';
 
 import {setAppStatusAC} from './app-reducer';

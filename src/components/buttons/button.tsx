@@ -7,14 +7,20 @@ type ButtonType = {
     size: string
     name?: string
     date?: string
+    type?: 'button' | 'submit' | 'reset' | undefined
+    callBack: () => void
+    disableButton?: boolean
 
 }
 
-export const Button = ({status, size, name, date}:ButtonType) => {
+export const Button = ({status, size, name, date, type, callBack, disableButton}:ButtonType) => {
 
     let disable = false
     let buttonName
 
+    if (disableButton) {
+        disable = true
+    }
 
     const dateDelivery = new Date(date!)
     const formatDate = (date:Date) => {
@@ -74,11 +80,12 @@ export const Button = ({status, size, name, date}:ButtonType) => {
 
     const onClickHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
+        callBack()
 
     }
 
     return (
-        <button className={`${bookStatus} ${buttonSize}`} onClick={onClickHandler} type="button" disabled={disable}>
+        <button className={`${bookStatus} ${buttonSize}`} onClick={onClickHandler} type= {type === 'submit' ? 'submit' : 'button'} disabled={disable}>
             {name ? name : buttonName}
         </button>
     )

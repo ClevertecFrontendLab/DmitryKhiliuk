@@ -49,6 +49,7 @@ export const Card = ({id, grid, value}: BookComponentType) => {
         return str
     }
 
+    const onClickButtonHandler = () => {}
 
     return (
         <div>
@@ -69,7 +70,7 @@ export const Card = ({id, grid, value}: BookComponentType) => {
                             </div>
                         </div>
                         <div className={styles.button}>
-                            <Button status={bookStatus} size="small"/>
+                            <Button status={bookStatus} size="small" callBack={onClickButtonHandler}/>
                         </div>
                     </div>
                 </div> :
@@ -87,7 +88,7 @@ export const Card = ({id, grid, value}: BookComponentType) => {
                                 <Rating count={rating}/>
                             </div>
                             <div className={styles.buttonRow}>
-                                <Button status='free' size="small" date={delivery?.dateHandedTo}/>
+                                <Button status='free' size="small" date={delivery?.dateHandedTo} callBack={onClickButtonHandler}/>
                             </div>
                         </div>
                     </div>

@@ -8,3 +8,7 @@ export const RULES = '/rules';
 export const AGREEMENT = '/agreement';
 export const BOOK = '/books/:category/:id';
 export const PROFILE = 'books/profile';
+export const AUTH = '/auth';
+export const REG = '/registration';
+export const RECOVERY = '/forgot-pass';
+

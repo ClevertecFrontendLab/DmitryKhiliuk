@@ -1,8 +1,9 @@
-import {Link} from 'react-router-dom';
+import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
 import avatar from '../../assets/avatar/avatar.png'
 import logo from '../../assets/logo/logo.svg'
-import {MAIN} from '../../common/routes';
+import {AUTH, MAIN} from '../../common/routes';
 import {selectStatus} from '../../common/selectors';
 import {useAppSelector} from '../../redux/store';
 import {ButtonBurger} from '../buttons';
@@ -20,9 +21,21 @@ type HeaderType = {
 
 export const Header = ({toggle, setToggle}: HeaderType) => {
     const status = useAppSelector(selectStatus)
+    const navigate = useNavigate()
 
     const onClickHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
         setToggle(event)
+    }
+
+    const [menu, setMenu] = useState(false)
+
+    const onClickHandlerForMenu = () => {
+       setMenu(!menu)
+    }
+
+    const onClickHandlerExit = () => {
+        localStorage.clear();
+        navigate(AUTH)
     }
 
     return (
@@ -38,10 +51,21 @@ export const Header = ({toggle, setToggle}: HeaderType) => {
                     </div>
                     <h3 className={styles.title}>Библиотека</h3>
                     <div className={styles.user}>
-                        <h3 className={styles.greeting}>Привет, Иван</h3>
-                        <img src={avatar} alt="avatar" className={styles.avatar}/>
+                        <h3 className={styles.greeting} >Привет, Иван</h3>
+                        <div onClick={onClickHandlerForMenu} onKeyDown={onClickHandlerForMenu} role='button' tabIndex={0}>
+                            <img src={avatar} alt="avatar" className={styles.avatar}/>
+                        </div>
+
                     </div>
+
                 </div>
+                {menu && <div className={styles.menuHeader}>
+                    <div className={styles.menuContent}>
+                        <button className={styles.menuButton} type='button'><h5>Профиль</h5></button>
+                        <button className={styles.menuButton} type='button' onClick={onClickHandlerExit}><h5>Выход</h5></button>
+                    </div>
+
+                </div>}
             </div>
         </section>
     );

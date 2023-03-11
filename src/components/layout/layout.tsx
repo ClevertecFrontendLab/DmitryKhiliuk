@@ -1,9 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Outlet} from 'react-router-dom';
+import {Outlet, useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
+import {AUTH} from '../../common/routes';
 import {selectStatus} from '../../common/selectors';
-import {useAppSelector} from '../../redux/store';
+import {authAC} from '../../redux/app-reducer';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
 import {Footer} from '../footer';
 import {Header} from '../header';
 import {Loader} from '../loader';
@@ -12,18 +14,30 @@ import {NavBurger} from '../nav-books';
 import styles from './layout.module.scss'
 
 
-
 export const Layout = React.memo(() => {
 
 
     const status = useAppSelector(selectStatus)
-
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const [toggleBurgerMenu, setToggleBurgerMenu] = useState(false)
     const toggleMenuHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         setToggleBurgerMenu(!toggleBurgerMenu)
     }
+
+    const jwt = localStorage.getItem('jwt')
+
+    useEffect(() => {
+        if (jwt) {
+            dispatch(authAC({auth: true}))
+        } else {
+            navigate(AUTH)
+        }
+    }, [jwt, dispatch, navigate])
+
+
 
 
 

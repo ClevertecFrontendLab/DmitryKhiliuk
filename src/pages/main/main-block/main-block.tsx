@@ -1,8 +1,9 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import cn from 'classnames'
 
 import search from '../../../assets/icons/search.svg';
-import {selectBooks} from '../../../common/selectors';
+import {selectAuthStatus, selectBooks} from '../../../common/selectors';
 import {FilterButton, RoundButton} from '../../../components/buttons';
 import {DisplayView} from '../../../components/display-view';
 import {fetchBooks} from '../../../redux/books-reducer';
@@ -19,11 +20,15 @@ export const MainBlock = () =>  {
 
     const dispatch = useAppDispatch()
     const books = useAppSelector(selectBooks)
+    const auth = useAppSelector(selectAuthStatus)
+    const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(fetchCategories())
-        dispatch(fetchBooks())
-    },[dispatch])
+        if (auth) {
+            dispatch(fetchCategories())
+            dispatch(fetchBooks())
+        }
+    },[dispatch, navigate, auth])
 
     const [gridContent, setGridContent] = useState(true)
     const [deployedInput, setDeployedInput] = useState(false)
