@@ -85,6 +85,10 @@ export const Reset = ({code}: ResetPropsType) => {
     if (valueConfPass &&  valueNewPass !== valueConfPass) {
         match = false
         flagForError = 'error'
+
+       // disable = true
+    }
+    if (errors.passwordConfirmation?.message) {
         disable = true
     }
 
@@ -121,7 +125,7 @@ export const Reset = ({code}: ResetPropsType) => {
                                validation={(value) => getValidPasswordConfirmation(value)}
                                errorMessage={errors.passwordConfirmation?.message}
                                pattern={regExpForPassword}
-                               minLength={minLength}
+
                                validate={(value:string) => ( value === valueNewPass) || 'Пароли не совпадают'}/>
                         {/* {!errors.password?.message  && <div data-test-id='hint' className={cn(styles.passError, !match && styles.visible)}>Пароли не совпадают</div>} */}
                         <input type="hidden" defaultValue={code}  name='code' />

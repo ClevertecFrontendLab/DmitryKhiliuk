@@ -47,6 +47,7 @@ export const Auth = () => {
 
     const onSubmit = (data: AuthDataType) => {
         dispatch(LogIn(data))
+        console.log(data)
         reset()
     }
 

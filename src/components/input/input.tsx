@@ -55,8 +55,12 @@ export const Input = ({register,
        setValue(e.currentTarget.value)
         validation!(e.currentTarget.value)
     }
+    const [blur, setBlur] = useState(false)
+    const onBlurHandler = () => {
+       setBlur(true)
+    }
 
-
+    console.log(errorMessage)
     return (
         <div>
             <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>
@@ -82,8 +86,10 @@ export const Input = ({register,
                                     required: {value: true, message: 'Поле не может быть пустым'},
                                     minLength,
                                     pattern,
+                                    onBlur: onBlurHandler
                                 })}
                             type={open ? 'text' : type} placeholder=' '
+
                             onChange={onChangeHandler}/>}
                     <label className={styles.label} htmlFor={name}>{label}</label>
                 </div>
