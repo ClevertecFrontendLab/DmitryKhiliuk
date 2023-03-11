@@ -9,4 +9,5 @@ export const selectBook = (state: AppRootStateType) => state.book.content
 export const selectDataReg = (state: AppRootStateType) => state.auth.registrationDate
 export const selectSuccessStatus = (state: AppRootStateType) => state.auth.status
 export const selectConfirmedStatus = (state: AppRootStateType) => state.auth.confirmed
+export const selectAuthStatus = (state: AppRootStateType) => state.app.auth
 export const selectBooksId = (state: AppRootStateType, id: number) => state.books.content.find((el) => el.id === id)

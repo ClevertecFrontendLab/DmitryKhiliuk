@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import search from '../../../assets/icons/search.svg';
 import {AUTH} from '../../../common/routes';
-import {selectBooks} from '../../../common/selectors';
+import {selectAuthStatus, selectBooks} from '../../../common/selectors';
 import {FilterButton, RoundButton} from '../../../components/buttons';
 import {DisplayView} from '../../../components/display-view';
 import {fetchBooks} from '../../../redux/books-reducer';
@@ -21,19 +21,16 @@ export const MainBlock = () =>  {
 
     const dispatch = useAppDispatch()
     const books = useAppSelector(selectBooks)
+    const auth = useAppSelector(selectAuthStatus)
     const jwt = localStorage.getItem('jwt')
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (jwt) {
+        if (auth) {
             dispatch(fetchCategories())
             dispatch(fetchBooks())
-        } else {
-           navigate(AUTH)
         }
-    },[dispatch, jwt, navigate])
-
-
+    },[dispatch, navigate, auth])
 
     const [gridContent, setGridContent] = useState(true)
     const [deployedInput, setDeployedInput] = useState(false)

@@ -97,6 +97,7 @@ export type ErrorType = {
 
 export type AppStatusType = {
     status: 'idle' | 'loading' | 'succeeded' | 'failed'
+    auth: boolean
 }
 
 /* AUTH */
