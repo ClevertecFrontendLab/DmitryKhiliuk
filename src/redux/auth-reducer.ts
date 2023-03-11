@@ -147,6 +147,7 @@ export const ResetPasswordTC = createAsyncThunk('auth/reset', async (dataPass: R
         dispatch(setAppStatusAC({status: 'succeeded'}))
         const res = await authAPI.reset(dataPass)
 
+
         dispatch(getConfirmed(res.data.user.confirmed))
 
         return res.data

@@ -55,7 +55,7 @@ export const Input = ({register,
         validation!(e.currentTarget.value)
     }
 
-    console.log(errorMessage)
+
     return (
         <div>
             <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>

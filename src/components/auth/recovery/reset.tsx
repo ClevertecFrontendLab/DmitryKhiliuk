@@ -2,7 +2,11 @@ import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import cn from 'classnames';
 
-import {selectConfirmedStatus, selectErrorStatus} from '../../../common/selectors';
+import {
+    selectConfirmedStatus,
+    selectErrorStatus,
+    selectSuccessStatus
+} from '../../../common/selectors';
 import {RecoveryDataType} from '../../../common/types';
 import {ResetPasswordTC} from '../../../redux/auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
@@ -19,8 +23,9 @@ type ResetPropsType = {
 
 export const Reset = ({code}: ResetPropsType) => {
     const dispatch = useAppDispatch()
-    const confirmed = useAppSelector(selectConfirmedStatus)
-    const error = useAppSelector(selectErrorStatus)
+    const status = useAppSelector(selectSuccessStatus)
+
+    const [successReset, setSuccessReset] = useState(false)
 
     const {
         register,
@@ -37,8 +42,8 @@ export const Reset = ({code}: ResetPropsType) => {
 
     const onSubmit = (dataPass: RecoveryDataType) => {
         dispatch(ResetPasswordTC(dataPass))
-        console.log(dataPass)
-        // reset()
+        setSuccessReset(true)
+        reset()
     }
 
     /* --------------------------------------------validation for password--------------------------------------- */
@@ -46,7 +51,7 @@ export const Reset = ({code}: ResetPropsType) => {
     const minLength = {value: 8, message: 'error length'}
     const regExpForPassword = {value: /^[0-9A-ZА-Я]{0,8}/, message: 'error password'}
 
-    /*  const [pass, setPass] = useState(false) */
+
     const [length, setLength] = useState(true)
     const [upperCase, setUpperCas] = useState(true)
     const [numbPass, setNumbPass] = useState(true)
@@ -58,8 +63,7 @@ export const Reset = ({code}: ResetPropsType) => {
 
 
     const getValidPassword = (value:string) => {
-        // console.log(value)
-        // setPass(/^[0-9A-ZА-Я]{0,8}/.test(value))
+
         clearErrors()
         setLength( /.{8,}/.test(value))
         setUpperCas( /[A-ZА-Я]/.test(value))
@@ -89,10 +93,11 @@ export const Reset = ({code}: ResetPropsType) => {
     const onClickButtonHandler = () => {}
 
 
+    console.log(status)
 
     return (
         <div>
-            {confirmed ? <ResetResult/>:
+            {successReset ? <ResetResult/>:
             <div className={styles.main}>
                 <div className={styles.content}>
                     <h4 className={styles.title}>Восстановление пароля</h4>

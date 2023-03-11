@@ -29,9 +29,11 @@ export const MainBlock = () =>  {
             dispatch(fetchCategories())
             dispatch(fetchBooks())
         } else {
-            navigate(AUTH)
+           navigate(AUTH)
         }
     },[dispatch, jwt, navigate])
+
+
 
     const [gridContent, setGridContent] = useState(true)
     const [deployedInput, setDeployedInput] = useState(false)

@@ -10,13 +10,14 @@ import {Loader} from '../loader';
 import {NavBurger} from '../nav-books';
 
 import styles from './layout.module.scss'
+import {AUTH} from "../../common/routes";
 
 
 export const Layout = React.memo(() => {
 
 
     const status = useAppSelector(selectStatus)
-
+    const navigate = useNavigate()
 
     const [toggleBurgerMenu, setToggleBurgerMenu] = useState(false)
     const toggleMenuHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
@@ -27,10 +28,10 @@ export const Layout = React.memo(() => {
     const jwt = localStorage.getItem('jwt')
 
 
-       /* if (!jwt) {
+        /* if (!jwt) {
             navigate(AUTH)
-        } */
-
+        }
+*/
 
 
 
