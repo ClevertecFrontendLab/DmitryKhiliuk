@@ -25,6 +25,7 @@ type InputType = {
     minLength?: {value: number, message: string}
     control?: Control<any,any>
     successPass?:  boolean
+    validate?: (value: string) => true | string
 }
 
 export const Input = ({register,
@@ -32,7 +33,7 @@ export const Input = ({register,
                           label,
                           type,
                           errorMessage,
-                          required,
+                          validate,
                           validation,
                           errorFlag,
                           pattern,
@@ -42,7 +43,7 @@ export const Input = ({register,
 
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState('')
-    const [blur, setBlur] = useState(false)
+
 
     const errorStatus = useAppSelector(selectErrorStatus)
 
@@ -77,6 +78,7 @@ export const Input = ({register,
                         <input  className={styles.input}
                             {...register(name,
                                 {
+                                    validate,
                                     required: {value: true, message: 'Поле не может быть пустым'},
                                     minLength,
                                     pattern,
@@ -89,7 +91,7 @@ export const Input = ({register,
                 {type === 'password' && value && <button onClick={onClickHandler} type='button'>{open ? <img data-test-id='eye-opened' className={styles.img} src={eyeOpen} alt="eye"/> : <img data-test-id='eye-closed' className={styles.img} src={eyeClose} alt="eye"/>}</button>}
             </div>
             {/* {errorMessage==='Поле не может быть пустым'&&<div className={styles.errorMessage} data-test-id='hint'>Поле не может быть пустым</div>} */}
-            {name === 'email' ? <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>:
+            {name === 'email' || name === 'passwordConfirmation' ? <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>:
             !value && <div className={styles.errorMessage} data-test-id='hint'>{errorMessage}</div>}
         </div>
     );

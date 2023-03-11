@@ -2,11 +2,7 @@ import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import cn from 'classnames';
 
-import {
-    selectConfirmedStatus,
-    selectErrorStatus,
-    selectSuccessStatus
-} from '../../../common/selectors';
+import {selectSuccessStatus} from '../../../common/selectors';
 import {RecoveryDataType} from '../../../common/types';
 import {ResetPasswordTC} from '../../../redux/auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
@@ -72,7 +68,10 @@ export const Reset = ({code}: ResetPropsType) => {
         return setValueNewPass(value)
     }
 
-    const getValidPasswordConfirmation = (value:string) => setValueConfPass(value)
+    const getValidPasswordConfirmation = (value:string) => {
+        clearErrors()
+        setValueConfPass(value)
+    }
 
     let pass = false
 
@@ -93,8 +92,6 @@ export const Reset = ({code}: ResetPropsType) => {
     const onClickButtonHandler = () => {}
 
 
-    console.log(status)
-
     return (
         <div>
             {successReset ? <ResetResult/>:
@@ -112,7 +109,7 @@ export const Reset = ({code}: ResetPropsType) => {
                                successPass={pass}
                                minLength={minLength}/>
                         {errors.password?.message !== 'Поле не может быть пустым' &&
-                            <div data-test-id='hint' className={cn(!length&&!upperCase&&!numbPass || errors.password ? styles.hintPasswordError : styles.hintPassword)}>
+                            <div data-test-id='hint' className={cn(!length&&!upperCase&&!numbPass && errors.password ? styles.hintPasswordError : styles.hintPassword)}>
                                 Пароль <span className={cn(!length&&styles.lengthPasswordHint)}>не менее 8 символов,
                                     </span> с <span className={cn(!upperCase&&styles.upperCasePasswordHint)}>заглавной буквой</span> и
                                 <span className={cn(!numbPass&&styles.numberPasswordHint)}> цифрой</span>
@@ -122,10 +119,11 @@ export const Reset = ({code}: ResetPropsType) => {
                                label='Повторите пароль'
                                type='password'
                                validation={(value) => getValidPasswordConfirmation(value)}
-                               errorFlag={flagForError}
+                               errorMessage={errors.passwordConfirmation?.message}
                                pattern={regExpForPassword}
-                               minLength={minLength}/>
-                        <div className={cn(styles.passError, !match && styles.visible)}>Пароли не совпадают</div>
+                               minLength={minLength}
+                               validate={(value:string) => ( value === valueNewPass) || 'Пароли не совпадают'}/>
+                        {/* {!errors.password?.message  && <div data-test-id='hint' className={cn(styles.passError, !match && styles.visible)}>Пароли не совпадают</div>} */}
                         <input type="hidden" defaultValue={code}  name='code' />
                         <div className={styles.space}/>
                         <Button size='large' type='submit' name='Сохранить изменения'

@@ -43,9 +43,10 @@ export const Auth = () => {
     });
 
 
+    const [required, setRequired] = useState<boolean|string>('Поле не может быть пустым')
+
     const onSubmit = (data: AuthDataType) => {
         dispatch(LogIn(data))
-        console.log(data)
         reset()
     }
 
