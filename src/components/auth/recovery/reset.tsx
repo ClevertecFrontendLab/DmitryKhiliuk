@@ -85,8 +85,6 @@ export const Reset = ({code}: ResetPropsType) => {
     if (valueConfPass &&  valueNewPass !== valueConfPass) {
         match = false
         flagForError = 'error'
-
-       // disable = true
     }
     if (errors.passwordConfirmation?.message) {
         disable = true

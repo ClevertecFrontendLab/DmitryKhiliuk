@@ -27,7 +27,6 @@ export const ResetResult = () => {
     return (
 
         <div className={styles.content} data-test-id='status-block'>
-            {/* <h4 className={styles.title}>{errorStatus ? 'Данные не сохранились' : 'Новые данные сохранены'} </h4> */}
             {errorStatus ?<h4 className={styles.title}> Данные не сохранились</h4> : <h4 className={styles.title}>Новые данные сохранены</h4>}
             <div className={styles.text}>{errorStatus ? 'Что-то пошло не так. Попробуйте ещё раз' : 'Зайдите в личный кабинет, используя свои логин и новый пароль'}</div>
             <Button size='large'

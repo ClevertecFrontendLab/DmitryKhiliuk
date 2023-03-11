@@ -3,7 +3,7 @@ import {Outlet, useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
 import {AUTH} from '../../common/routes';
-import {selectIsLoggedIn, selectStatus} from '../../common/selectors';
+import {selectStatus} from '../../common/selectors';
 import {authAC} from '../../redux/app-reducer';
 import {useAppDispatch, useAppSelector} from '../../redux/store';
 import {Footer} from '../footer';

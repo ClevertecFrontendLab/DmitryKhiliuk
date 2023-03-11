@@ -60,7 +60,7 @@ export const Input = ({register,
        setBlur(true)
     }
 
-    console.log(errorMessage)
+
     return (
         <div>
             <div className={cn(styles.main, errorMessage && styles.mainError || errorStatus && styles.mainError || errorFlag && styles.mainError)}>

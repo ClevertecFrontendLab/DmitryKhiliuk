@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-dom';
 import cn from 'classnames'
 
 import search from '../../../assets/icons/search.svg';
-import {AUTH} from '../../../common/routes';
 import {selectAuthStatus, selectBooks} from '../../../common/selectors';
 import {FilterButton, RoundButton} from '../../../components/buttons';
 import {DisplayView} from '../../../components/display-view';
@@ -22,7 +21,6 @@ export const MainBlock = () =>  {
     const dispatch = useAppDispatch()
     const books = useAppSelector(selectBooks)
     const auth = useAppSelector(selectAuthStatus)
-    const jwt = localStorage.getItem('jwt')
     const navigate = useNavigate()
 
     useEffect(() => {

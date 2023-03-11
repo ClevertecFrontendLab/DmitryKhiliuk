@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {NavLink, useNavigate} from 'react-router-dom';
 
@@ -43,11 +43,10 @@ export const Auth = () => {
     });
 
 
-    const [required, setRequired] = useState<boolean|string>('Поле не может быть пустым')
+
 
     const onSubmit = (data: AuthDataType) => {
         dispatch(LogIn(data))
-        console.log(data)
         reset()
     }
 

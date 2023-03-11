@@ -1,6 +1,6 @@
 @import "src/mixins.scss";
 .content {
-    min-width: 410px;
+    max-width: 410px;
     margin: 48px 95px;
     display: flex;
     flex-direction: column;

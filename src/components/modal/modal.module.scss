@@ -11,7 +11,7 @@
     .text {
         color: white;
         position: absolute;
-        top: calc((100% - 500px)/2*0.75);
+        top: calc((100% - 500px)/2*0.5);
         @media screen and (max-width: 560px){
             top: 16px
         }

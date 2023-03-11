@@ -46,8 +46,6 @@ export const Forgot = () => {
         reset()
     }
 
-    console.log(errors)
-
     const regMail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
     let regExpForMail = {value: regMail, message: 'Введите корректный e-mail'}
 

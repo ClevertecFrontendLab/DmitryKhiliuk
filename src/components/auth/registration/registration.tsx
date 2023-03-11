@@ -100,7 +100,7 @@ export const Registration = () => {
     }
     /* --------------------------------------------validation for password--------------------------------------- */
 
-   /*  const [pass, setPass] = useState(false) */
+
     const [length, setLength] = useState(true)
     const [upperCase, setUpperCase] = useState(true)
     const [numbPass, setNumbPass] = useState(true)
@@ -116,7 +116,7 @@ export const Registration = () => {
 
 
     const getValidPassword = (value:string) => {
-        // setPass(/^[0-9A-ZА-Я]{0,8}/.test(value))
+
         clearErrors()
         setLength( /.{8,}/.test(value))
         setUpperCase( /[A-ZА-Я]/.test(value))
@@ -251,8 +251,6 @@ export const Registration = () => {
                                            errorMessage={errors.email?.message}
                                            pattern={regExpForMail}
                                            validation={(value) => getValidMail(value)}/>
-                                     {/* {errors.email?.message !== 'Поле не может быть пустым' &&
-                                        <div data-test-id='hint' className={cn(styles.hintPhone, !mail || errors.email  && styles.hintPhoneError)}>Введите корректный e-mail</div>} */}
                                     <div className={styles.space}/>
                                     <Button size='large' type='submit' name='зарегистрироваться' callBack={onClickButtonHandler} disableButton={disable}/>
                                 </form>
