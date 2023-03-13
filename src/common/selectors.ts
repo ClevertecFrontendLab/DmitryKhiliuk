@@ -11,3 +11,4 @@ export const selectSuccessStatus = (state: AppRootStateType) => state.auth.statu
 export const selectConfirmedStatus = (state: AppRootStateType) => state.auth.confirmed
 export const selectAuthStatus = (state: AppRootStateType) => state.app.auth
 export const selectBooksId = (state: AppRootStateType, id: number) => state.books.content.find((el) => el.id === id)
+export const selectModal = (state: AppRootStateType) => state.booking.showModal

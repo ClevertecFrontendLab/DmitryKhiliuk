@@ -3,9 +3,10 @@ import {Outlet, useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
 import {AUTH} from '../../common/routes';
-import {selectStatus} from '../../common/selectors';
+import {selectModal, selectStatus} from '../../common/selectors';
 import {authAC} from '../../redux/app-reducer';
 import {useAppDispatch, useAppSelector} from '../../redux/store';
+import {Calendar} from '../calendar';
 import {Footer} from '../footer';
 import {Header} from '../header';
 import {Loader} from '../loader';
@@ -18,6 +19,7 @@ export const Layout = React.memo(() => {
 
 
     const status = useAppSelector(selectStatus)
+    const modal = useAppSelector(selectModal)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -62,6 +64,7 @@ export const Layout = React.memo(() => {
         <div className={cn(styles.layout)} >
             {status === 'loading' && <div ><Loader/></div>}
             {status === 'loading' && <div className={styles.loader}> </div>}
+            {modal && <Calendar/>}
             <header ><Header toggle={toggleBurgerMenu} setToggle={toggleMenuHandler}/></header>
             <div ref={dropDownRef}  className={cn(styles.burgerMenuOpen, !toggleBurgerMenu && styles.burgerMenuClose)}>
                 <NavBurger callBurger={toggleMenuHandler}/>

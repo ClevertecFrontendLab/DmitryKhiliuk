@@ -71,7 +71,7 @@ export const Forgot = () => {
 
     return (
         <div>
-            <Modal>
+            <Modal content="auth">
 
                 {mailStatus ? <ForgotResult/> : (code ?
                     <Reset code={code}/> :

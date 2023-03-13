@@ -19,6 +19,7 @@ import styles from './book-page.module.scss'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
+import {showModalAC} from "../../redux/booking-reducer";
 
 export type DataBookType = { [key: string]: string | string[] }
 
@@ -80,7 +81,9 @@ export const BookPage = () => {
 
     const categoryForCrumbs = categories.find(el => el.path === category)?.name
 
-    const onClickButtonHandler = () => {}
+    const onClickButtonHandler = () => {
+        dispatch(showModalAC(true))
+    }
 
     return (
         <section className={styles.bookPage}>

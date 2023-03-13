@@ -5,6 +5,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {appReducer} from './app-reducer';
 import {authReducer} from './auth-reducer';
 import {bookReducer} from './book-reducer';
+import {bookingReducer} from './booking-reducer';
 import {booksReducer} from './books-reducer';
 import {navReducer} from './nav-reducer';
 
@@ -13,7 +14,8 @@ export const rootReducer = combineReducers({
     auth: authReducer,
     books: booksReducer,
     book: bookReducer,
-    navigation: navReducer
+    navigation: navReducer,
+    booking: bookingReducer
 })
 
 export const store = configureStore({
