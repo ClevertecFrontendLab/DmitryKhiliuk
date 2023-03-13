@@ -169,7 +169,7 @@ export const Registration = () => {
 
     return (
         <div>
-            <Modal>
+            <Modal content="auth">
                     <div className={styles.main}>
                         {step===4 ?
                             <RegistrationResult setStep={setStep} />:

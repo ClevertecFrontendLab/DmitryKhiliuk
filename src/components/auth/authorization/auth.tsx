@@ -64,7 +64,7 @@ export const Auth = () => {
 
     return (
         <div className={styles.main} >
-            <Modal>
+            <Modal content="auth">
                 {error && error !== 400  ?
                     <div data-test-id='status-block' className={styles.errorContent}>
                         <h4 className={styles.title}>Вход не выполнен</h4>
